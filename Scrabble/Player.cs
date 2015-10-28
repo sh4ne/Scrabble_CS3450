@@ -15,4 +15,63 @@ public class Player
         playerID = userID;
         name = username;
     }
+
+    // BEGIN GETTER FUCTIONS
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public LetterRack GetLetterRack()
+    {
+        return letterRack;
+    }
+
+    public int GetSkipCount()
+    {
+        return skipCount;
+    }
+
+    public bool GetHasTurnPriority()
+    {
+        return hasTurnPriority;
+    }
+
+    public string GetName()
+    {
+        return name;
+    }
+
+    public int GetPlayerID()
+    {
+        return playerID;
+    }
+    // END GETTER FUNCTIONS
+
+    public void AddToScore(int points)
+    {
+        score += points;
+    }
+
+    public void GiveTurnPriority()
+    {
+        hasTurnPriority = true;
+    }
+
+    public void RemoveTurnPriority()
+    {
+        hasTurnPriority = false;
+    }
+
+    public void IncrementSkipCount()
+    {
+        skipCount++;
+    }
+
+    public void DecrementSkipCount()
+    {
+        skipCount--;
+    }
 }
+
+
