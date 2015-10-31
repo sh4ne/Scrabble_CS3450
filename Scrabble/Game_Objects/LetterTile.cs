@@ -77,7 +77,7 @@ namespace Scrabble.Game_Objects
         /// <summary>
         /// Returns true if the LetterTile is a null LetterTile. Returns false otherwise.
         /// </summary>
-        /// <returns>Returns true if the LetterTile is a null LetterTile. Returns false otherwise.</returns>
+        /// <returns>Returns whether the LetterTile is a null LetterTile.</returns>
         public bool IsNullLetterTile()
         {
             return this.LetterValue == 'n';

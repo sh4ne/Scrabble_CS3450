@@ -1,6 +1,15 @@
-﻿namespace Scrabble
+﻿//-----------------------------------------------------------------------
+// <copyright file="ScrabbleGUI.Designer.cs" company="Scrabble Project Developers">
+//     Copyright (c) Scrabble Project Developers. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+namespace Scrabble
 {
-    partial class ScrabbleGUI
+    /// <summary>
+    /// The automatically generated code for the ScrabbleGUI.
+    /// </summary>
+    public partial class ScrabbleGUI
     {
         /// <summary>
         /// Required designer variable.
@@ -13,10 +22,11 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (this.components != null))
             {
-                components.Dispose();
+                this.components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
