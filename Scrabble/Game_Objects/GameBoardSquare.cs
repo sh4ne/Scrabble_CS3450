@@ -7,10 +7,6 @@
 namespace Scrabble.Game_Objects
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// A GameBoardSquare is a container that can hold either 0 or 1 letter tiles.
@@ -52,7 +48,7 @@ namespace Scrabble.Game_Objects
         private bool isStartSquare;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GameBoardSquare"/> class.
+        /// Initializes a new instance of the <see cref="GameBoardSquare"/> class. Throws InvalidGameBoardSquareConfigurationException.
         /// </summary>
         /// <param name="coordinateX">The private member coordinateX will be set to this value (must be from 0 - 14).</param>
         /// <param name="coordinateY">The private member coordinateY will be set to this value (must be from 0 - 14).</param>
@@ -109,14 +105,6 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
-        /// Gets a value indicating whether this is the start square (i.e. the central square in the board).
-        /// </summary>
-        public bool IsStartSquare
-        {
-            get { return this.isStartSquare; }
-        }
-
-        /// <summary>
         /// Gets letterMultiplier.
         /// </summary>
         public int LetterMultiplier
@@ -146,6 +134,68 @@ namespace Scrabble.Game_Objects
         public int CoordinateY
         {
             get { return this.coordinateY; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is the start square (i.e. the central square in the board).
+        /// </summary>
+        public bool IsStartSquare
+        {
+            get { return this.isStartSquare; }
+        }
+
+        /// <summary>
+        /// Returns true if the GameBoardSquare is empty. Returns false otherwise.
+        /// </summary>
+        /// <returns>Returns whether the GameBoardSquare is empty.</returns>
+        public bool IsEmpty()
+        {
+            return this.containedTile.IsNullLetterTile();
+        }
+
+        /// <summary>
+        /// Inserts a LetterTile object into the GameBoardSquare, unless the GameBoardSquare already contains a LetterTile.
+        /// Then it throw an InvalidGameBoardSquareConfigurationException.
+        /// </summary>
+        /// <param name="letterTileToBeInserted">The letter tile that is being inserted into the GameBoardSquare.</param>
+        public void InsertLetterTile(ref LetterTile letterTileToBeInserted)
+        {
+            if (this.IsEmpty())
+            {
+                this.containedTile = letterTileToBeInserted;
+            }
+            else
+            {
+                InvalidGameBoardSquareConfigurationException invalidGameBoardSquareConfiguration = new InvalidGameBoardSquareConfigurationException("Invalid insertion of LetterTile object into GameBoardSquareObject.");
+                throw invalidGameBoardSquareConfiguration;
+            }
+        }
+
+        /// <summary>
+        /// Removes the contained letter tile from the GameBoardSquare, and returns it.
+        /// </summary>
+        /// <returns>The LetterTile contained in the GameBoardSquare</returns>
+        public LetterTile RemoveLetterTile()
+        {
+            if (this.containedTile.IsNullLetterTile())
+            {
+                InvalidGameBoardSquareConfigurationException invalidGameBoardSquareConfiguration = new InvalidGameBoardSquareConfigurationException("Invalid removal of LetterTile from an already empty GameBoardSquare object.");
+                throw invalidGameBoardSquareConfiguration;
+            }
+            else
+            {
+                LetterTile letterTileToBeReturned = this.containedTile;
+                this.containedTile = new LetterTile('n', 0);
+                return letterTileToBeReturned;
+            }
+        }
+
+        /// <summary>
+        /// Sets the letterMultiplier and wordMultiplier values to 1.
+        /// </summary>
+        public void RemoveScoreMultipliers()
+        {
+            this.letterMultiplier = this.wordMultiplier = 1;
         }
 
         /// <summary>
