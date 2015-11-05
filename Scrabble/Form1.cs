@@ -16,5 +16,11 @@ namespace Scrabble
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Scrabble.Logger log = new Scrabble.Logger();
+            log.logMessage("HELLO");
+        }
     }
 }

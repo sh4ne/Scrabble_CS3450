@@ -13,8 +13,19 @@ namespace Scrabble
         /// </summary>
         public Logger()
         {
-            this.verboseLog = new System.IO.StreamWriter(System.IO.Directory.GetCurrentDirectory());
 
+            if (System.IO.Directory.Exists(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\"))
+            {
+                this.verboseLog = new System.IO.StreamWriter(System.IO.Directory.GetCurrentDirectory() + "\\Log\\" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + "_VERBOSE_LOG.txt");
+                this.gameStateLog = new System.IO.StreamWriter(System.IO.Directory.GetCurrentDirectory() + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + "_GAME_STATE.txt");
+            }
+            else
+            {
+                System.IO.Directory.CreateDirectory(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\");
+                this.verboseLog = new System.IO.StreamWriter(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + "VERBOSE_LOG.txt");
+                this.gameStateLog = new System.IO.StreamWriter(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + "GAME_STATE.txt");
+            }
+            
         }
 
         /// <summary>
@@ -23,7 +34,7 @@ namespace Scrabble
         /// <param name="message"></param>
         public void logMessage(string message)
         {
-
+            this.verboseLog.WriteLineAsync(message);
         }
 
         /// <summary>
