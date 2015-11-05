@@ -53,6 +53,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Game Objects\GameBoardSquare.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="PlayerClass\Player.cs" />
     <Compile Include="Game Objects\LetterTile.cs" />
     <Compile Include="Program.cs" />
