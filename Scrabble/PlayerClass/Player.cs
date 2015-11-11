@@ -12,7 +12,7 @@ namespace Scrabble.PlayerClass
     {
         // Player class member variables
         private string name;
-        private LetterTileRack letterTileRack;
+        //private LetterTileRack letterTileRack;
         private int playerID;
         private int skipCount;
         private int score;
@@ -30,10 +30,10 @@ namespace Scrabble.PlayerClass
             return score;
         }
 
-        public LetterTileRack GetLetterTileRack()
-        {
-            return letterTileRack;
-        }
+        //public LetterTileRack GetLetterTileRack()
+        //{
+        //    return letterTileRack;
+        //}
 
         public int GetSkipCount()
         {
