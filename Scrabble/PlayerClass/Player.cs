@@ -30,10 +30,10 @@ namespace Scrabble.PlayerClass
             return score;
         }
 
-        //public LetterRack GetLetterRack()
-        //{
-        //    return letterRack;
-        //}
+        public LetterTileRack GetLetterTileRack()
+        {
+            return letterTileRack;
+        }
 
         public int GetSkipCount()
         {
