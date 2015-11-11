@@ -1,19 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Logger.cs" company="Scrabble Project Developers">
+//     Copyright (c) Scrabble Project Developers. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 
 namespace Scrabble
 {
+    using System;
+
     /// <summary>
     /// Logger - creates 2 files which you can write what is happening in the game.
-    /// used for errors, warnings, normal messages, and the change of gamestate.
+    /// used for errors, warnings, normal messages, and the change of game state.
     /// </summary>
-    class Logger
+    public partial class Logger
     {
         /// <summary>
-        /// default constructor - each game world will have a logger to keep track of what is happening in game
+        /// The verbose log stream file
+        /// </summary>
+        private System.IO.TextWriter verboseLog;
+
+        /// <summary>
+        /// The game state log stream file
+        /// </summary>
+        private System.IO.TextWriter gameStateLog;
+
+        /// <summary>
+        /// Record of when the logger class was created.
+        /// </summary>
+        private string now;
+
+        /// <summary>
+        /// Initializes a new instance of the Logger class.
+        /// each game world will have a logger to keep track of what is happening in game
         /// </summary>
         public Logger()
         {
@@ -25,14 +43,15 @@ namespace Scrabble
         /// logMessage - Logs a normal message to the verbose log file.
         /// </summary>
         /// <param name="message">This is the message that will be written to file</param>
-        public void logMessage(string message)
+        public void LogMessage(string message)
         {
             using (this.verboseLog =
                    new System.IO.StreamWriter(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + this.now + "_VERBOSE_LOG.txt", true))
             {
-                verboseLog.WriteLineAsync(message);
+                this.verboseLog.WriteLineAsync(message);
             }
-            verboseLog.Close();
+
+            this.verboseLog.Close();
         }
 
         /// <summary>
@@ -40,56 +59,46 @@ namespace Scrabble
         /// </summary>
         /// <param name="warning">The warning message that will be written.</param>
         /// <param name="where">Where the warning is coming from.</param>
-        public void logWarning(string warning, string where)
+        public void LogWarning(string warning, string where)
         {
             using (this.verboseLog =
                    new System.IO.StreamWriter(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + this.now + "_VERBOSE_LOG.txt", true))
             {
-                verboseLog.WriteLineAsync("*** WARNING - "+where+": "+warning +" ***");
+                this.verboseLog.WriteLineAsync("*** WARNING - " + where + ": " + warning + " ***");
             }
-            verboseLog.Close();
+
+            this.verboseLog.Close();
         }
 
         /// <summary>
         /// logError - Logs an error message to the verbose log file.
         /// </summary>
         /// <param name="error">The error message that will be written.</param>
-        /// <param name="where">Where the error occured.</param>
-        public void logError(string error, string where)
+        /// <param name="where">Where the error happened.</param>
+        public void LogError(string error, string where)
         {
             using (this.verboseLog =
                    new System.IO.StreamWriter(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + this.now + "_VERBOSE_LOG.txt", true))
             {
-                verboseLog.WriteLineAsync("!!!!!!! ERROR - "+where+": "+error+" !!!!!!!");
+                this.verboseLog.WriteLineAsync("!!!!!!! ERROR - " + where + ": " + error + " !!!!!!!");
             }
-            verboseLog.Close();
+
+            this.verboseLog.Close();
         }
 
         /// <summary>
-        /// 
+        /// Adds a line to game state log.
         /// </summary>
-        /// <param name="toGameState"></param>
-        public void addToGameState(string toGameState)
+        /// <param name="toGameState">String to add to game state log.</param>
+        public void AddToGameState(string toGameState)
         {
             using (this.gameStateLog =
                    new System.IO.StreamWriter(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + this.now + "_GAMESTATE_LOG.txt", true))
             {
-                gameStateLog.WriteLineAsync(toGameState);
+                this.gameStateLog.WriteLineAsync(toGameState);
             }
-            gameStateLog.Close();
+
+            this.gameStateLog.Close();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private System.IO.TextWriter verboseLog;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private System.IO.TextWriter gameStateLog;
-
-        private string now;
-
     }
 }

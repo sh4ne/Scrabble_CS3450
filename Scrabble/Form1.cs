@@ -102,22 +102,22 @@ namespace Scrabble
 
         private void button5_Click(object sender, EventArgs e)
         {
-            logger.logMessage("This is a test message.");
+            logger.LogMessage("This is a test message.");
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            logger.logWarning("This is a test warning.", "form1 button6");
+            logger.LogWarning("This is a test warning.", "form1 button6");
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            logger.logError("This is a test error.", "form1 button7");
+            logger.LogError("This is a test error.", "form1 button7");
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            logger.addToGameState("This goes to gamestate.");
+            logger.AddToGameState("This goes to gamestate.");
         }
     }
 }
