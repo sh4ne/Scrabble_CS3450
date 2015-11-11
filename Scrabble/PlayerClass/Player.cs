@@ -4,7 +4,7 @@ public class Player
 {
     // Player class member variables
     private string name;
-    //private LetterTileRack letterTileRack;
+    //private LetterRack letterRack;
     private int playerID;
     private int skipCount;
     private int score;
@@ -22,9 +22,9 @@ public class Player
         return score;
     }
 
-    //public LetterTileRack GetLetterTileRack()
+    //public LetterRack GetLetterRack()
     //{
-    //    return letterTileRack;
+    //    return letterRack;
     //}
 
     public int GetSkipCount()
