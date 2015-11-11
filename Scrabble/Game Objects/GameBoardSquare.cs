@@ -18,7 +18,7 @@ namespace Scrabble.Game_Objects
         /// The letter tile contained in the square. If the containedTile is null, it means that the 
         /// GameBoardSquare is empty.
         /// </summary>
-        private LetterTile containedTile;
+        private LetterTile containedLetterTile;
         
         /// <summary>
         /// The square's letter multiplier (must be from 1 - 3, and 1 if wordMultiplier is not 1).
@@ -101,7 +101,7 @@ namespace Scrabble.Game_Objects
             this.wordMultiplier = wordMultiplier;
             this.letterMultiplier = letterMultiplier;
 
-            this.containedTile = new LetterTile('n', 0);
+            this.containedLetterTile = new LetterTile('n', 0);
         }
 
         /// <summary>
@@ -145,12 +145,23 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
+        /// Gets containedLetterTile.
+        /// </summary>
+        public LetterTile ContainedLetterTile
+        {
+            get
+            {
+                return this.containedLetterTile;
+            }
+        }
+
+        /// <summary>
         /// Returns true if the GameBoardSquare is empty. Returns false otherwise.
         /// </summary>
         /// <returns>Returns whether the GameBoardSquare is empty.</returns>
         public bool IsEmpty()
         {
-            return this.containedTile.IsNullLetterTile();
+            return this.containedLetterTile.IsNullLetterTile();
         }
 
         /// <summary>
@@ -158,11 +169,11 @@ namespace Scrabble.Game_Objects
         /// Then it throw an InvalidGameBoardSquareConfigurationException.
         /// </summary>
         /// <param name="letterTileToBeInserted">The letter tile that is being inserted into the GameBoardSquare.</param>
-        public void InsertLetterTile(ref LetterTile letterTileToBeInserted)
+        public void InsertLetterTile(LetterTile letterTileToBeInserted)
         {
             if (this.IsEmpty())
             {
-                this.containedTile = letterTileToBeInserted;
+                this.containedLetterTile = letterTileToBeInserted;
             }
             else
             {
@@ -177,15 +188,15 @@ namespace Scrabble.Game_Objects
         /// <returns>The LetterTile contained in the GameBoardSquare</returns>
         public LetterTile RemoveLetterTile()
         {
-            if (this.containedTile.IsNullLetterTile())
+            if (this.containedLetterTile.IsNullLetterTile())
             {
                 InvalidGameBoardSquareConfigurationException invalidGameBoardSquareConfiguration = new InvalidGameBoardSquareConfigurationException("Invalid removal of LetterTile from an already empty GameBoardSquare object.");
                 throw invalidGameBoardSquareConfiguration;
             }
             else
             {
-                LetterTile letterTileToBeReturned = this.containedTile;
-                this.containedTile = new LetterTile('n', 0);
+                LetterTile letterTileToBeReturned = this.containedLetterTile;
+                this.containedLetterTile = new LetterTile('n', 0);
                 return letterTileToBeReturned;
             }
         }

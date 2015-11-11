@@ -1,77 +1,85 @@
-using System;
+//-----------------------------------------------------------------------
+// <copyright file="Player.cs" company="Scrabble Project Developers">
+//     Copyright (c) Scrabble Project Developers. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 
-public class Player
+namespace Scrabble.PlayerClass
 {
-    // Player class member variables
-    private string name;
-    private LetterRack letterRack;
-    private int playerID;
-    private int skipCount;
-    private int score;
-    private bool hasTurnPriority;
+    using Scrabble.Game_Objects;
 
-    public Player(int userID, string username)
+    public class Player
     {
-        playerID = userID;
-        name = username;
-    }
+        // Player class member variables
+        private string name;
+        private LetterTileRack letterTileRack;
+        private int playerID;
+        private int skipCount;
+        private int score;
+        private bool hasTurnPriority;
 
-    // BEGIN GETTER FUCTIONS
-    public int GetScore()
-    {
-        return score;
-    }
+        public Player(int userID, string username)
+        {
+            playerID = userID;
+            name = username;
+        }
 
-    public LetterRack GetLetterRack()
-    {
-        return letterRack;
-    }
+        // BEGIN GETTER FUCTIONS
+        public int GetScore()
+        {
+            return score;
+        }
 
-    public int GetSkipCount()
-    {
-        return skipCount;
-    }
+        //public LetterRack GetLetterRack()
+        //{
+        //    return letterRack;
+        //}
 
-    public bool GetHasTurnPriority()
-    {
-        return hasTurnPriority;
-    }
+        public int GetSkipCount()
+        {
+            return skipCount;
+        }
 
-    public string GetName()
-    {
-        return name;
-    }
+        public bool GetHasTurnPriority()
+        {
+            return hasTurnPriority;
+        }
 
-    public int GetPlayerID()
-    {
-        return playerID;
-    }
-    // END GETTER FUNCTIONS
+        public string GetName()
+        {
+            return name;
+        }
 
-    public void AddToScore(int points)
-    {
-        score += points;
-    }
+        public int GetPlayerID()
+        {
+            return playerID;
+        }
+        // END GETTER FUNCTIONS
 
-    public void GiveTurnPriority()
-    {
-        hasTurnPriority = true;
-    }
+        public void AddToScore(int points)
+        {
+            score += points;
+        }
 
-    public void RemoveTurnPriority()
-    {
-        hasTurnPriority = false;
-    }
+        public void GiveTurnPriority()
+        {
+            hasTurnPriority = true;
+        }
 
-    public void IncrementSkipCount()
-    {
-        skipCount++;
-    }
+        public void RemoveTurnPriority()
+        {
+            hasTurnPriority = false;
+        }
 
-    public void DecrementSkipCount()
-    {
-        skipCount--;
+        public void IncrementSkipCount()
+        {
+            skipCount++;
+        }
+
+        public void DecrementSkipCount()
+        {
+            skipCount--;
+        }
     }
 }
-
 
