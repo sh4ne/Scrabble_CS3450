@@ -63,7 +63,7 @@ namespace Scrabble.Game_Objects
         /// </summary>
         public char LetterValue
         {
-            get { return this.LetterValue; }
+            get { return this.letterValue; }
         }
 
         /// <summary>
