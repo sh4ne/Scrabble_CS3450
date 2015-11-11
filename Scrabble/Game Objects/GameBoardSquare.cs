@@ -169,7 +169,7 @@ namespace Scrabble.Game_Objects
         /// Then it throw an InvalidGameBoardSquareConfigurationException.
         /// </summary>
         /// <param name="letterTileToBeInserted">The letter tile that is being inserted into the GameBoardSquare.</param>
-        public void InsertLetterTile(LetterTile letterTileToBeInserted)
+        public void InsertLetterTile(ref LetterTile letterTileToBeInserted)
         {
             if (this.IsEmpty())
             {
