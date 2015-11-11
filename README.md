@@ -28,5 +28,3 @@ __This will also be bold__
 _You **can** combine them_
 
 blah
-
-John added this.
