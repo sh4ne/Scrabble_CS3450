@@ -15,13 +15,13 @@ namespace ScrabbleUnitTest
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Unit tests for the First Things First milestone classes
+    /// Unit tests for the Play Class
     /// </summary>
     [TestClass]
-    public class FirstThingsFirstUnitTests
+    public class PlayClassTests
     {
         /// <summary>
-        /// Tests the Player class
+        /// Tests the Play class
         /// </summary>
         [TestMethod]
         public void PlayClassTest()
@@ -40,13 +40,13 @@ namespace ScrabbleUnitTest
             // assertions
             Assert.AreEqual(3, play.GetParallelListLength());
 
-            Assert.AreEqual(0, play.GetXCoordinate(0));
-            Assert.AreEqual(1, play.GetXCoordinate(1));
-            Assert.AreEqual(2, play.GetXCoordinate(2));
+            Assert.AreEqual(0, play.GetCoordinateX(0));
+            Assert.AreEqual(1, play.GetCoordinateX(1));
+            Assert.AreEqual(2, play.GetCoordinateX(2));
 
-            Assert.AreEqual(0, play.GetYCoordinate(0));
-            Assert.AreEqual(0, play.GetYCoordinate(1));
-            Assert.AreEqual(0, play.GetYCoordinate(2));
+            Assert.AreEqual(0, play.GetCoordinateY(0));
+            Assert.AreEqual(0, play.GetCoordinateY(1));
+            Assert.AreEqual(0, play.GetCoordinateY(2));
 
             Assert.AreEqual(letterTileA, play.GetLetterTile(0));
             Assert.AreEqual(letterTileN, play.GetLetterTile(1));

@@ -145,6 +145,17 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
+        /// Gets containedLetterTile.
+        /// </summary>
+        public LetterTile ContainedLetterTile
+        {
+            get
+            {
+                return this.containedTile;
+            }
+        }
+
+        /// <summary>
         /// Returns true if the GameBoardSquare is empty. Returns false otherwise.
         /// </summary>
         /// <returns>Returns whether the GameBoardSquare is empty.</returns>
@@ -158,7 +169,7 @@ namespace Scrabble.Game_Objects
         /// Then it throw an InvalidGameBoardSquareConfigurationException.
         /// </summary>
         /// <param name="letterTileToBeInserted">The letter tile that is being inserted into the GameBoardSquare.</param>
-        public void InsertLetterTile(ref LetterTile letterTileToBeInserted)
+        public void InsertLetterTile(LetterTile letterTileToBeInserted)
         {
             if (this.IsEmpty())
             {

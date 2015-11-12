@@ -82,27 +82,27 @@ namespace Scrabble
         }
 
         /// <summary>
-        /// returns playerID member.
+        /// returns single value from coordinatesX member.
         /// </summary>
-        /// <param name="index">The index at this value of xCoordinates member will be returned.</param>
-        /// <returns>The index at the sent in value of xCoordinates member will be returned</returns>
-        public int GetXCoordinate(int index)
+        /// <param name="index">The index at this value of coordinatesX member will be returned.</param>
+        /// <returns>The index at the sent in value of coordinatesX member will be returned</returns>
+        public int GetCoordinateX(int index)
         {
             return this.coordinatesX[index];
         }
 
         /// <summary>
-        /// returns playerID member.
+        /// returns single value from coordinatesY member.
         /// </summary>
-        /// <param name="index">The index at this value of yCoordinates will be returned.</param>
-        /// <returns>The index at the sent in value of yCoordinates member will be returned</returns>
-        public int GetYCoordinate(int index)
+        /// <param name="index">The index at this value of coordinatesY will be returned.</param>
+        /// <returns>The index at the sent in value of coordinatesY member will be returned</returns>
+        public int GetCoordinateY(int index)
         {
             return this.coordinatesY[index];
         }
 
         /// <summary>
-        /// returns playerID member.
+        /// returns single value from letterTile member.
         /// </summary>
         /// <param name="index">The index at this value of letterTiles member will be returned.</param>
         /// <returns>The index at the sent in value of letterTiles member will be returned</returns>
@@ -112,7 +112,7 @@ namespace Scrabble
         }
 
         /// <summary>
-        /// returns playerID member.
+        /// returns the length of the parallel list with xCoordinates, yCoordinates, and letterTiles.
         /// </summary>
         /// <returns>The length of the parallel list with xCoordinates, yCoordinates, and letterTiles.</returns>
         public int GetParallelListLength()

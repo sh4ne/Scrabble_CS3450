@@ -63,7 +63,7 @@ namespace Scrabble.Game_Objects
         /// </summary>
         public char LetterValue
         {
-            get { return this.LetterValue; }
+            get { return this.letterValue; }
         }
 
         /// <summary>
@@ -81,6 +81,11 @@ namespace Scrabble.Game_Objects
         public bool IsNullLetterTile()
         {
             return this.LetterValue == 'n';
+        }
+
+        public bool Equals(LetterTile other)
+        {
+            return this.PointValue == other.PointValue && this.LetterValue == other.LetterValue;
         }
 
         /// <summary>
