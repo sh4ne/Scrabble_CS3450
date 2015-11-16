@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="LoggerTests.cs" />
     <Compile Include="PlayClassTests.cs" />
     <Compile Include="Game Objects\GameBoardSquareTests.cs" />
     <Compile Include="Game Objects\LetterTileRackTests.cs" />
@@ -63,7 +64,7 @@
       <Name>EasyNetwork</Name>
     </ProjectReference>
     <ProjectReference Include="..\Scrabble\Scrabble.csproj">
-      <Project>{86BFC4A3-CD59-4A56-8243-1522BBC09B73}</Project>
+      <Project>{86bfc4a3-cd59-4a56-8243-1522bbc09b73}</Project>
       <Name>Scrabble</Name>
     </ProjectReference>
   </ItemGroup>
