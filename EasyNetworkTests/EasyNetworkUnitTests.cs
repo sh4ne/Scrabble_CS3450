@@ -52,53 +52,53 @@ namespace EasyNetworkTests
         [TestMethod]
         public void ClientToServer()
         {
-            //EasyNetwork.Server server = new EasyNetwork.Server("tcp://*:1982");
-            //EasyNetwork.Client clientOne = new EasyNetwork.Client("tcp://localhost:1982");
-            //EasyNetwork.Client clientTwo = new EasyNetwork.Client("tcp://localhost:1982");
+            EasyNetwork.Server server = new EasyNetwork.Server("tcp://*:1982");
+            EasyNetwork.Client clientOne = new EasyNetwork.Client("tcp://localhost:1982");
+            EasyNetwork.Client clientTwo = new EasyNetwork.Client("tcp://localhost:1982");
 
-            //// Set up event handler on server
-            //serverObjectsReceived.Clear();
-            //server.DataReceived += Server_DataReceived;
+            // Set up event handler on server
+            serverObjectsReceived.Clear();
+            server.DataReceived += Server_DataReceived;
 
-            //// Build up some objects to send
-            //MyTestObject obj = new MyTestObject();
-            //obj.Value = 3.14159f;
-            //obj.Text = "Hello World!";
+            // Build up some objects to send
+            MyTestObject obj = new MyTestObject();
+            obj.Value = 3.14159f;
+            obj.Text = "Hello World!";
 
-            //OtherTestObject obj2 = new OtherTestObject();
-            //obj2.Value = 1234;
-            //obj2.Text = "Hello World Again!";
+            OtherTestObject obj2 = new OtherTestObject();
+            obj2.Value = 1234;
+            obj2.Text = "Hello World Again!";
 
-            //server.Start();
-            //clientOne.Start();
-            //clientTwo.Start();
+            server.Start();
+            clientOne.Start();
+            clientTwo.Start();
 
-            //clientOne.Send<MyTestObject>(obj);
-            //clientTwo.Send<OtherTestObject>(obj2);
+            clientOne.Send<MyTestObject>(obj);
+            clientTwo.Send<OtherTestObject>(obj2);
 
-            //// Wait for both objects to arrive at server
-            //while (serverObjectsReceived.Count < 2)
-            //{
-            //    Thread.Sleep(100);
-            //}
+            // Wait for both objects to arrive at server
+            while (serverObjectsReceived.Count < 2)
+            {
+                Thread.Sleep(100);
+            }
 
-            //Assert.AreEqual(2, serverObjectsReceived.Count);
+            Assert.AreEqual(2, serverObjectsReceived.Count);
 
-            //Assert.IsTrue(serverObjectsReceived[0].Item1 is MyTestObject);
-            //MyTestObject actualObjectOne = serverObjectsReceived[0].Item1 as MyTestObject;
-            //Assert.AreEqual(clientOne.Id, serverObjectsReceived[0].Item2);
-            //Assert.AreEqual(obj.Value, actualObjectOne.Value);
-            //Assert.AreEqual(obj.Text, actualObjectOne.Text);
+            Assert.IsTrue(serverObjectsReceived[0].Item1 is MyTestObject);
+            MyTestObject actualObjectOne = serverObjectsReceived[0].Item1 as MyTestObject;
+            Assert.AreEqual(clientOne.Id, serverObjectsReceived[0].Item2);
+            Assert.AreEqual(obj.Value, actualObjectOne.Value);
+            Assert.AreEqual(obj.Text, actualObjectOne.Text);
 
-            //Assert.IsTrue(serverObjectsReceived[1].Item1 is OtherTestObject);
-            //OtherTestObject actualObjectTwo = serverObjectsReceived[1].Item1 as OtherTestObject;
-            //Assert.AreEqual(clientTwo.Id, serverObjectsReceived[1].Item2);
-            //Assert.AreEqual(obj2.Value, actualObjectTwo.Value);
-            //Assert.AreEqual(obj2.Text, actualObjectTwo.Text);
+            Assert.IsTrue(serverObjectsReceived[1].Item1 is OtherTestObject);
+            OtherTestObject actualObjectTwo = serverObjectsReceived[1].Item1 as OtherTestObject;
+            Assert.AreEqual(clientTwo.Id, serverObjectsReceived[1].Item2);
+            Assert.AreEqual(obj2.Value, actualObjectTwo.Value);
+            Assert.AreEqual(obj2.Text, actualObjectTwo.Text);
 
-            //server.Stop();
-            //clientOne.Stop();
-            //clientTwo.Stop();       
+            server.Stop();
+            clientOne.Stop();
+            clientTwo.Stop();
         }
 
         /// <summary>
@@ -107,54 +107,54 @@ namespace EasyNetworkTests
         [TestMethod]
         public void ServerResponseEventHandlers()
         {
-            //EasyNetwork.Server server = new EasyNetwork.Server("tcp://*:1982");
-            //EasyNetwork.Client clientOne = new EasyNetwork.Client("tcp://localhost:1982");
-            //EasyNetwork.Client clientTwo = new EasyNetwork.Client("tcp://localhost:1982");
+            EasyNetwork.Server server = new EasyNetwork.Server("tcp://*:1982");
+            EasyNetwork.Client clientOne = new EasyNetwork.Client("tcp://localhost:1982");
+            EasyNetwork.Client clientTwo = new EasyNetwork.Client("tcp://localhost:1982");
 
-            //// Set up event handles
-            //serverObjectsReceived.Clear();
-            //server.DataReceived += Server_DataReceived;
-            //clientOneDataReceived = null;
-            //clientTwoDataReceived = null;
-            //clientOne.DataReceived += ClientOne_DataReceived;
-            //clientTwo.DataReceived += ClientTwo_DataReceived;
+            // Set up event handles
+            serverObjectsReceived.Clear();
+            server.DataReceived += Server_DataReceived;
+            clientOneDataReceived = null;
+            clientTwoDataReceived = null;
+            clientOne.DataReceived += ClientOne_DataReceived;
+            clientTwo.DataReceived += ClientTwo_DataReceived;
 
-            //server.Start();
-            //clientOne.Start();
-            //clientTwo.Start();
+            server.Start();
+            clientOne.Start();
+            clientTwo.Start();
 
-            //// Build and send a message to the server
-            //MyTestObject clientOneMessage = new MyTestObject();
-            //clientOneMessage.Value = 3.14159f;
-            //clientOneMessage.Text = "Hello Server!";
-            //clientOne.Send<MyTestObject>(clientOneMessage);
+            // Build and send a message to the server
+            MyTestObject clientOneMessage = new MyTestObject();
+            clientOneMessage.Value = 3.14159f;
+            clientOneMessage.Text = "Hello Server!";
+            clientOne.Send<MyTestObject>(clientOneMessage);
 
-            //// Server receives, handles, and responds to message
-            //while (serverObjectsReceived.Count == 0)
-            //{
-            //    Thread.Sleep(100);
-            //}
+            // Server receives, handles, and responds to message
+            while (serverObjectsReceived.Count == 0)
+            {
+                Thread.Sleep(100);
+            }
 
-            //Assert.IsTrue(serverObjectsReceived.Count > 0);
-            //Assert.IsTrue(serverObjectsReceived[0].Item1 is MyTestObject);
-            //MyTestObject receivedMessage = serverObjectsReceived[0].Item1 as MyTestObject;
-            //MyTestObject responseMessage = new MyTestObject();
-            //responseMessage.Value = receivedMessage.Value * 2;
-            //responseMessage.Text = "Howdy client!";
-            //server.Send<MyTestObject>(receivedMessage, serverObjectsReceived[0].Item2);
+            Assert.IsTrue(serverObjectsReceived.Count > 0);
+            Assert.IsTrue(serverObjectsReceived[0].Item1 is MyTestObject);
+            MyTestObject receivedMessage = serverObjectsReceived[0].Item1 as MyTestObject;
+            MyTestObject responseMessage = new MyTestObject();
+            responseMessage.Value = receivedMessage.Value * 2;
+            responseMessage.Text = "Howdy client!";
+            server.Send<MyTestObject>(receivedMessage, serverObjectsReceived[0].Item2);
 
-            //Thread.Sleep(1000);
+            Thread.Sleep(1000);
 
-            //// Make sure the second client didn't receive anything
-            //Assert.IsNull(clientTwoDataReceived);
+            // Make sure the second client didn't receive anything
+            Assert.IsNull(clientTwoDataReceived);
 
-            //// The clientOne should have received the message destined for it
-            //Assert.IsNotNull(clientOneDataReceived);
-            //Assert.IsTrue(clientOneDataReceived is MyTestObject);
+            // The clientOne should have received the message destined for it
+            Assert.IsNotNull(clientOneDataReceived);
+            Assert.IsTrue(clientOneDataReceived is MyTestObject);
 
-            //server.Stop();
-            //clientOne.Stop();
-            //clientTwo.Stop();
+            server.Stop();
+            clientOne.Stop();
+            clientTwo.Stop();
         }
 
         /// <summary>
@@ -162,78 +162,78 @@ namespace EasyNetworkTests
         /// </summary>
         [TestMethod]
         public void PushToAllClients()
-        {            
-            //EasyNetwork.Server server = new EasyNetwork.Server("tcp://*:1982");
-            //server.DataReceived += Server_DataReceived;
+        {
+            EasyNetwork.Server server = new EasyNetwork.Server("tcp://*:1982");
+            server.DataReceived += Server_DataReceived;
 
-            //List<EasyNetwork.Client> clients = new List<EasyNetwork.Client>();
-            //const int NumClients = 10;
+            List<EasyNetwork.Client> clients = new List<EasyNetwork.Client>();
+            const int NumClients = 10;
 
-            //for (int i = 0; i < NumClients; i++)
-            //{
-            //    clients.Add(new EasyNetwork.Client("tcp://localhost:1982"));
-            //    clients[clients.Count - 1].DataReceived += Clients_DataReceived;
-            //}
+            for (int i = 0; i < NumClients; i++)
+            {
+                clients.Add(new EasyNetwork.Client("tcp://localhost:1982"));
+                clients[clients.Count - 1].DataReceived += Clients_DataReceived;
+            }
 
-            //server.Start();
-            
-            //foreach (EasyNetwork.Client client in clients)
-            //{
-            //    client.Start();
-            //}
+            server.Start();
 
-            //// Clients are registered with server after any messaging, so send something from each
-            //MyTestObject helloFromClient = new MyTestObject();
-            //helloFromClient.Value = 42.42f;
-            //helloFromClient.Text = "Hello Server!";
+            foreach (EasyNetwork.Client client in clients)
+            {
+                client.Start();
+            }
 
-            //foreach (EasyNetwork.Client client in clients)
-            //{
-            //    client.Send<MyTestObject>(helloFromClient);
-            //}
+            // Clients are registered with server after any messaging, so send something from each
+            MyTestObject helloFromClient = new MyTestObject();
+            helloFromClient.Value = 42.42f;
+            helloFromClient.Text = "Hello Server!";
 
-            //// Server should keep track of each client after hearing from them
-            //while (server.ClientList.Count < NumClients)
-            //{
-            //    Thread.Sleep(100);
-            //}
+            foreach (EasyNetwork.Client client in clients)
+            {
+                client.Send<MyTestObject>(helloFromClient);
+            }
 
-            //Assert.AreEqual(NumClients, server.ClientList.Count);
+            // Server should keep track of each client after hearing from them
+            while (server.ClientList.Count < NumClients)
+            {
+                Thread.Sleep(100);
+            }
 
-            //// Send something to each client
-            //foreach (Guid clientId in server.ClientList)
-            //{
-            //    MyTestObject helloFromServer = new MyTestObject();
-            //    helloFromServer.Value = 4.2f;
-            //    helloFromServer.Text = clientId.ToString();
-            //    server.Send<MyTestObject>(helloFromServer, clientId);
-            //}
+            Assert.AreEqual(NumClients, server.ClientList.Count);
 
-            //// Wait until the appropriate number of responses are received by clients
-            //while (dataReceivedPerClient.Count < NumClients)
-            //{
-            //    Thread.Sleep(100);
-            //}
+            // Send something to each client
+            foreach (Guid clientId in server.ClientList)
+            {
+                MyTestObject helloFromServer = new MyTestObject();
+                helloFromServer.Value = 4.2f;
+                helloFromServer.Text = clientId.ToString();
+                server.Send<MyTestObject>(helloFromServer, clientId);
+            }
 
-            //// Make sure each client has received their personalized messages from the server
-            //foreach (EasyNetwork.Client client in clients)
-            //{
-            //    Object genericObject = dataReceivedPerClient[client.Id];
-            //    Assert.IsNotNull(genericObject);
+            // Wait until the appropriate number of responses are received by clients
+            while (dataReceivedPerClient.Count < NumClients)
+            {
+                Thread.Sleep(100);
+            }
 
-            //    if (genericObject is MyTestObject)
-            //    {
-            //        MyTestObject receivedObject = genericObject as MyTestObject;
-            //        Assert.AreEqual(client.Id.ToString(), receivedObject.Text);
-            //    }
-            //}
+            // Make sure each client has received their personalized messages from the server
+            foreach (EasyNetwork.Client client in clients)
+            {
+                Object genericObject = dataReceivedPerClient[client.Id];
+                Assert.IsNotNull(genericObject);
 
-            //server.Stop();
+                if (genericObject is MyTestObject)
+                {
+                    MyTestObject receivedObject = genericObject as MyTestObject;
+                    Assert.AreEqual(client.Id.ToString(), receivedObject.Text);
+                }
+            }
 
-            //foreach (EasyNetwork.Client client in clients)
-            //{
-            //    client.Stop();
-            //}
+            server.Stop();
+
+            foreach (EasyNetwork.Client client in clients)
+            {
+                client.Stop();
+            }
         }
 
         /// <summary>
