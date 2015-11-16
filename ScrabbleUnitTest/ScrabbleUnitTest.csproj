@@ -51,10 +51,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="LoggerTests.cs" />
+    <Compile Include="Game Objects\GameBoardSquareTests.cs" />
+    <Compile Include="Game Objects\LetterTileRackTests.cs" />
+    <Compile Include="Game Objects\LetterTileTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EasyNetwork\EasyNetwork.csproj">
+      <Project>{b334b401-b417-4b74-862e-1fd8709ffa9f}</Project>
+      <Name>EasyNetwork</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scrabble\Scrabble.csproj">
       <Project>{86bfc4a3-cd59-4a56-8243-1522bbc09b73}</Project>
       <Name>Scrabble</Name>
