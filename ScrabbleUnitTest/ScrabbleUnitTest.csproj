@@ -50,10 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="FirstThingsFirstUnitTests.cs" />
     <Compile Include="Game Objects\GameBoardSquareTests.cs" />
     <Compile Include="Game Objects\LetterTileRackTests.cs" />
     <Compile Include="Game Objects\LetterTileTests.cs" />
+    <Compile Include="PlayerClass\PlayerTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
