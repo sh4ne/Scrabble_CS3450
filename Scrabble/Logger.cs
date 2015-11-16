@@ -17,17 +17,17 @@ namespace Scrabble
         /// <summary>
         /// The verbose log stream file
         /// </summary>
-        private System.IO.TextWriter verboseLog;
+        public System.IO.TextWriter verboseLog;
 
         /// <summary>
         /// The game state log stream file
         /// </summary>
-        private System.IO.TextWriter gameStateLog;
+        public System.IO.TextWriter gameStateLog;
 
         /// <summary>
         /// Record of when the logger class was created.
         /// </summary>
-        private string now;
+        public string now;
 
         /// <summary>
         /// Initializes a new instance of the Logger class.
