@@ -20,6 +20,8 @@ namespace Scrabble.Game_Objects
         {
             get
             {
+                try
+                {
                 if (PlayerList.Count() < 0)
                 {
                     List<PlayerClass.Player> tempList = new List<PlayerClass.Player>();
@@ -30,6 +32,7 @@ namespace Scrabble.Game_Objects
                     string error = "PlayerList can't have more than four players";
                     throw new System.Exception(error);
                 }
+                else
                 return this.PlayerList;
             }           
         }
