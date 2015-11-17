@@ -18,55 +18,39 @@ namespace Scrabble.Game_Objects
         /// </summary>
         private List<PlayerClass.Player> PlayerList
         {
-            get
-            {
-                try
-                {
-                if (PlayerList.Count() < 0)
-                {
-                    List<PlayerClass.Player> tempList = new List<PlayerClass.Player>();
-                    return tempList;
-                }
-                else if (PlayerList.Count() >=4)
-                {
-                    string error = "PlayerList can't have more than four players";
-                    throw new System.Exception(error);
-                }
-                else
-                return this.PlayerList;
-            }           
+            get; set;
         }
 
         /// <summary>
         /// GameBoard object, represents the GUI GameBoard for game
         /// </summary>
-        //private Scrabble.GameBoard Board
-        //{
-        //    get { return this.Board; }
-        //}
+        private Board GameBoard
+        {
+            get; set;
+        }
 
         /// <summary>
         /// Bag object, contains letter tiles for game
         /// </summary>
-        //private Bag TileBag
-        //{
-        //    get { return this.TileBag; }
-        //}
+        private Bag TileBag
+        {
+            get; set;
+        }
 
         /// <summary>
         /// TurnOrder object, contains the order of play for game
         /// </summary>
-        //private TurnOrder PlayerOrder
-        //{
-        //    get { return this.PlayerOrder; }
-        //}
+        private TurnOrder PlayerOrder
+        {
+            get; set;
+        }
 
         /// <summary>
         /// Play object, contains most recent play
         /// </summary>
         private Scrabble.Play recentPlay
         {
-            get { return this.recentPlay; }
+            get; set;
         }
 
         /// <summary>
@@ -75,8 +59,8 @@ namespace Scrabble.Game_Objects
         /// <returns>returns a game state string </returns>
         public override string ToString()
         {
-            System.Text.StringBuilder state = new System.Text.StringBuilder();
-            string TimeStamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss}", DateTime.Now);
+            System.Text.StringBuilder state = new StringBuilder();
+            string TimeStamp = string.Format("{0:MM/dd/yyyy hh:mm:ss}", DateTime.Now);
             state.AppendLine(TimeStamp);
             int i = 0;
             foreach(PlayerClass.Player player in this.PlayerList)
@@ -92,7 +76,15 @@ namespace Scrabble.Game_Objects
 
         public void AddPlayer(PlayerClass.Player player)
         {
-            PlayerList.Add(player);
+            if (PlayerList == null) PlayerList = new List<PlayerClass.Player>();
+            if (PlayerList.Count() < 5 && PlayerList.Count() >= 0)
+            {
+                PlayerList.Add(player);
+            }
+            else
+            {
+                Console.WriteLine("Players List is Full.");
+            }
         }
     }
 }
