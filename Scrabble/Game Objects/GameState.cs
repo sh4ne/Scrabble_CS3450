@@ -48,7 +48,7 @@ namespace Scrabble.Game_Objects
         /// <summary>
         /// Play object, contains most recent play
         /// </summary>
-        private Scrabble.Play recentPlay
+        private Play recentPlay
         {
             get; set;
         }
