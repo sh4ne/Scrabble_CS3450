@@ -59,13 +59,16 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Game Objects\Board.cs" />
     <Compile Include="Game Objects\GameBoardSquare.cs" />
+    <Compile Include="Game Objects\TurnOrder.cs" />
     <Compile Include="Game Objects\LetterTileRack.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="PlayerClass\Player.cs" />
     <Compile Include="Game Objects\LetterTile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\Dictionary.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -91,6 +94,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EasyNetwork\EasyNetwork.csproj">
       <Project>{b334b401-b417-4b74-862e-1fd8709ffa9f}</Project>

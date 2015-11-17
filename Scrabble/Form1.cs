@@ -40,7 +40,7 @@ namespace Scrabble
 
         private void button2_Click(object sender, EventArgs e)
         {
-            EasyNetwork.Server server = new Server("tcp://*:9001");
+            EasyNetwork.Server server = new EasyNetwork.Server("tcp://*:9001");
             server.DataReceived += Server_DataReceived;
             server.Start();
             
