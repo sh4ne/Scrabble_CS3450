@@ -16,8 +16,7 @@ namespace Scrabble.GameWorld
     /// A GameWorld object contains all the objects necessary to conduct 1 game of Scrabble (1 game board,
     /// 2-4 players, a bag, etc).
     /// </summary>
-    class GameWorld
+    public class GameWorld
     {
-
     }
 }
