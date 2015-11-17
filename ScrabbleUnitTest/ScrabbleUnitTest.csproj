@@ -50,9 +50,26 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-	<Compile Include="FirstThingsFirstUnitTests.cs" />
+    <Compile Include="LoggerTests.cs" />
+    <Compile Include="PlayClassTests.cs" />
+    <Compile Include="Game Objects\GameBoardSquareTests.cs" />
+    <Compile Include="Game Objects\LetterTileRackTests.cs" />
+    <Compile Include="Game Objects\LetterTileTests.cs" />
+    <Compile Include="PlayerClass\PlayerTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ChatPacketTests.cs" />
+    <Compile Include="Game Objects\BagTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyNetwork\EasyNetwork.csproj">
+      <Project>{b334b401-b417-4b74-862e-1fd8709ffa9f}</Project>
+      <Name>EasyNetwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scrabble\Scrabble.csproj">
+      <Project>{86bfc4a3-cd59-4a56-8243-1522bbc09b73}</Project>
+      <Name>Scrabble</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

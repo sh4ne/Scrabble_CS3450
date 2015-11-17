@@ -98,7 +98,7 @@ namespace EasyNetworkTests
 
             server.Stop();
             clientOne.Stop();
-            clientTwo.Stop();       
+            clientTwo.Stop();
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace EasyNetworkTests
         /// </summary>
         [TestMethod]
         public void PushToAllClients()
-        {            
+        {
             EasyNetwork.Server server = new EasyNetwork.Server("tcp://*:1982");
             server.DataReceived += Server_DataReceived;
 
@@ -176,7 +176,7 @@ namespace EasyNetworkTests
             }
 
             server.Start();
-            
+
             foreach (EasyNetwork.Client client in clients)
             {
                 client.Start();
