@@ -14,15 +14,15 @@ namespace Scrabble.Tests
         [TestMethod()]
         public void LoggerTest()
         {
-            Scrabble.Logger testLog = new Logger();
-            Scrabble.Logger test2 = new Logger();
+            global::Scrabble.Logger testLog = new Logger();
+            global::Scrabble.Logger test2 = new Logger();
             Assert.IsFalse(testLog.Equals(test2));
         }
 
         [TestMethod()]
         public void LogMessageTest()
         {
-            Scrabble.Logger tempLog = new Logger();
+            global::Scrabble.Logger tempLog = new Logger();
             tempLog.LogMessage("Testing...");
             string inFile = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + tempLog.now + "_VERBOSE_LOG.txt");
             Assert.IsFalse(inFile.Equals("Testing..."));     
@@ -31,7 +31,7 @@ namespace Scrabble.Tests
         [TestMethod()]
         public void LogWarningTest()
         {
-            Scrabble.Logger tempLog = new Logger();
+            global::Scrabble.Logger tempLog = new Logger();
             tempLog.LogWarning("Warning...","Unit Test");
             string inFile = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + tempLog.now + "_VERBOSE_LOG.txt");
             Console.Write(inFile);
@@ -41,7 +41,7 @@ namespace Scrabble.Tests
         [TestMethod()]
         public void LogErrorTest()
         {
-            Scrabble.Logger tempLog = new Logger();
+            global::Scrabble.Logger tempLog = new Logger();
             tempLog.LogError("Error...", "Unit Test");
             string inFile = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + tempLog.now + "_VERBOSE_LOG.txt");
             Console.Write(inFile);
@@ -51,7 +51,7 @@ namespace Scrabble.Tests
         [TestMethod()]
         public void AddToGameStateTest()
         {
-            Scrabble.Logger tempLog = new Logger();
+            global::Scrabble.Logger tempLog = new Logger();
             tempLog.AddToGameState("Testing...");
             string inFile = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "\\Logs\\" + tempLog.now + "_GAMESTATE_LOG.txt");
             Assert.IsFalse(inFile.Equals("Testing..."));

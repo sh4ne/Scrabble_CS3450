@@ -15,6 +15,8 @@ namespace Scrabble
         public WorldGUI()
         {
             InitializeComponent();
+            Logger WorldLog = new Logger();
+            WorldLog.LogMessage("World GUI Initialized.");
         }
 
         private void TileTest_Paint(object sender, PaintEventArgs e)
@@ -27,9 +29,5 @@ namespace Scrabble
 
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

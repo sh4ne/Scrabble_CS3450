@@ -52,12 +52,6 @@
     <Compile Include="Game Objects\Bag.cs" />
     <Compile Include="GameWorld\GameWorld.cs" />
     <Compile Include="Play.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Game Objects\Board.cs" />
     <Compile Include="Game Objects\GameBoardSquare.cs" />
     <Compile Include="Game Objects\TurnOrder.cs" />
@@ -74,9 +68,6 @@
     <Compile Include="WorldGUI.Designer.cs">
       <DependentUpon>WorldGUI.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

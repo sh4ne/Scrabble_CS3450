@@ -9,7 +9,7 @@ namespace Scrabble.Game_Objects
     class TurnOrder
     {
         private int turnOrderIndex;
-        private List<Scrabble.PlayerClass.Player> turnQueue = new List<Scrabble.PlayerClass.Player>();
+        private List<global::Scrabble.PlayerClass.Player> turnQueue = new List<PlayerClass.Player>();
 
         public TurnOrder()
         {
