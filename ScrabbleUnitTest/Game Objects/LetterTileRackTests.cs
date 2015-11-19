@@ -178,5 +178,15 @@ namespace Scrabble.Game_Objects.Tests
             exceptionWasThrown = false;
 
         }
+
+        [TestMethod()]
+        public void TestExceptions()
+        {
+            LetterTileRack.InvalidLetterTileAccessException exc1 = new LetterTileRack.InvalidLetterTileAccessException();
+            Assert.IsTrue(exc1.ToString() == "InvalidLetterTileAccess: Invalid access was attempted to a LetterTile in a LetterTileRack.");
+
+            LetterTileRack.InvalidLetterTileInsertionException exc2 = new LetterTileRack.InvalidLetterTileInsertionException();
+            Assert.IsTrue(exc2.ToString() == "InvalidLetterTileInsertion: An insertion was attempted into a full LetterTileRack.");
+        }
     }
 }

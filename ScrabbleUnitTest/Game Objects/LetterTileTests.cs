@@ -87,5 +87,15 @@ namespace Scrabble.Game_Objects.Tests
             lt2 = new LetterTile('A', 2);
             Assert.IsFalse(lt1.Equals(lt2));
         }
+
+        [TestMethod()]
+        public void ExceptionTests()
+        {
+            LetterTile.InvalidLetterValueException exc = new LetterTile.InvalidLetterValueException();
+            Assert.IsTrue(exc.ToString() == "InvalidLetterValue: A LetterTile object was assigned an invalid letter value.");
+
+            LetterTile.InvalidPointValueException exc2 = new LetterTile.InvalidPointValueException();
+            Assert.IsTrue(exc2.ToString() == "InvalidPointValue: A LetterTile object was assigned an invalid point value.");
+        }
     }
 }

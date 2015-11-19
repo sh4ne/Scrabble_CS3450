@@ -175,6 +175,18 @@ namespace Scrabble.Game_Objects.Tests
             LetterTile lt = new LetterTile('A', 1);
             gbs.InsertLetterTile(lt);
             Assert.IsFalse(gbs.IsEmpty());
+
+            bool exceptionsWasThrown = false;
+            try
+            {
+                gbs.InsertLetterTile(lt);
+            }
+            catch (GameBoardSquare.InvalidGameBoardSquareConfigurationException e)
+            {
+                exceptionsWasThrown = true;
+                Assert.IsTrue(e.ToString() == "InvalidGameBoardSquareConfigurationException: Invalid insertion of LetterTile object into GameBoardSquareObject.");
+            }
+            Assert.IsTrue(exceptionsWasThrown);
         }
 
         [TestMethod()]
@@ -187,6 +199,18 @@ namespace Scrabble.Game_Objects.Tests
 
             LetterTile lt2 = gbs.RemoveLetterTile();
             Assert.IsTrue(gbs.IsEmpty());
+
+            bool exceptionWasThrown = false;
+            try
+            {
+                lt2 = gbs.RemoveLetterTile();
+            }
+            catch (GameBoardSquare.InvalidGameBoardSquareConfigurationException e)
+            {
+                exceptionWasThrown = true;
+                Assert.IsTrue(e.ToString() == "InvalidGameBoardSquareConfigurationException: Invalid removal of LetterTile from an already empty GameBoardSquare object.");
+            }
+            Assert.IsTrue(exceptionWasThrown);
         }
 
         [TestMethod()]
@@ -199,6 +223,21 @@ namespace Scrabble.Game_Objects.Tests
             gbs = new GameBoardSquare(0, 0, 1, 3);
             gbs.RemoveScoreMultipliers();
             Assert.IsTrue(gbs.LetterMultiplier == 1 && gbs.WordMultiplier == 1);
+        }
+
+        [TestMethod()]
+        public void GetCoordinatesTest()
+        {
+            GameBoardSquare gbs = new GameBoardSquare(5, 3, 1, 1);
+            Assert.IsTrue(gbs.CoordinateY == 3);
+            Assert.IsTrue(gbs.CoordinateX == 5);
+        }
+
+        [TestMethod()]
+        public void ExceptionTest()
+        {
+            GameBoardSquare.InvalidGameBoardSquareConfigurationException exc = new GameBoardSquare.InvalidGameBoardSquareConfigurationException();
+            Assert.IsTrue(exc.ToString() == "InvalidGameBoardSquareConfigurationException: A GameBoardSquare object was incorrectly configured.");
         }
     }
 }
