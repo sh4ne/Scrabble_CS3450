@@ -29,5 +29,27 @@ namespace Scrabble
 
         }
 
+        private void createServerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form server = new Server.ServerGUI();
+            server.Show();
+        }
+
+        private void panel1_DragDrop(object sender, DragEventArgs e)
+        {
+            int xCord = e.X;
+            int yCord = e.Y;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form server = new Server.ServerGUI();
+            server.Show();
+        }
     }
 }
