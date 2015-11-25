@@ -50,6 +50,14 @@ namespace Scrabble.GameWorld
             this.turnOrder = new TurnOrder(players);
             this.bag = new Bag();
             this.gameBoard = new Board();
+
+            foreach (Player player in this.players)
+            {
+                for(int i = 0; i < 7; ++i)
+                {
+                    player.DrawLetterTile(bag.DrawLetterTile());
+                }
+            }
         }
     }
 }

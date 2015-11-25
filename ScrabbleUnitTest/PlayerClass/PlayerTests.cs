@@ -204,5 +204,16 @@ namespace Scrabble.PlayerClass.Tests
             Assert.IsFalse(p.HasTurnPriority);
 
         }
+
+        [TestMethod()]
+        public void ToggleVoteTest()
+        {
+            Player p = new Player(1, "Blob");
+            Assert.IsFalse(p.HasVotedToEndGame);
+            p.ToggleVote();
+            Assert.IsTrue(p.HasVotedToEndGame);
+            p.ToggleVote();
+            Assert.IsFalse(p.HasVotedToEndGame);
+        }
     }
 }

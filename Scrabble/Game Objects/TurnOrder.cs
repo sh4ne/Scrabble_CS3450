@@ -11,7 +11,7 @@ namespace Scrabble.Game_Objects
     using Scrabble.PlayerClass;
 
     /// <summary>
-    /// A circular queue of <see cref="Player"/> objects. Throws <see cref="InvalidTurnQueueSizeException"/> and <see cref="InvalidPlayerUpdateException"/>
+    /// A circular queue of <see cref="Player"/> objects. Throws <see cref="InvalidTurnQueueSizeException"/>.
     /// </summary>
     public class TurnOrder
     {
@@ -47,6 +47,8 @@ namespace Scrabble.Game_Objects
                 this.turnQueue[i] = this.turnQueue[randomIndex];
                 this.turnQueue[randomIndex] = temp;
             }
+
+            this.turnQueue[this.activePlayerIndex].HasTurnPriority = true;
         }
 
         /// <summary>
@@ -69,31 +71,6 @@ namespace Scrabble.Game_Objects
             {
                 return this.activePlayerIndex;
             }
-        }
-
-        /// <summary>
-        /// Updates the information of a <see cref="Player"/>. Throws <see cref="InvalidPlayerUpdateException"/>.
-        /// </summary>
-        /// <param name="index">The index of the <see cref="Player"/> in <see cref="turnQueue"/> to be updated.</param>
-        /// <param name="player">The <see cref="Player"/> whose information will be used to update the chosen player.</param>
-        public void UpdatePlayer(int index, Player player)
-        {
-            if (index < 0 || index >= this.turnQueue.Count)
-            {
-                throw new InvalidPlayerUpdateException("Invalid index of " + index.ToString());
-            }
-
-            if (this.turnQueue[index].Username != player.Username)
-            {
-                throw new InvalidPlayerUpdateException("Given username " + player.Username + " did not match turnQueue[" + index + "].Username " + this.turnQueue[index].Username);
-            }
-            
-            if (this.turnQueue[index].PlayerID != player.PlayerID)
-            {
-                throw new InvalidPlayerUpdateException("Given PlayerID " + player.PlayerID.ToString() + " did not match turnQueue[" + index + "].PlayerID " + this.turnQueue[index].PlayerID);
-            }
-
-            this.turnQueue[index] = player;
         }
 
         /// <summary>
@@ -127,13 +104,26 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
-        /// Tells whether a given <see cref="Player"/> is in <see cref="turnQueue"/>.
+        /// Returns the index of a given <see cref="Player"/> in <see cref="turnQueue"/>.
         /// </summary>
         /// <param name="player">The player in question.</param>
-        /// <returns>True if player is in <see cref="turnQueue"/>. Returns false otherwise./></returns>
-        public bool ContainsPlayer(Player player)
+        /// <returns>The index of player in <see cref="TurnQueue"/>. Returns -1 if player is not in <see cref="TurnQueue"/>./></returns>
+        public int IndexOf(Player player)
         {
-            return this.turnQueue.Contains(player);
+            int index = 0;
+            foreach (Player p in this.turnQueue)
+            {
+                if (p.PlayerID == player.PlayerID && p.Username == player.Username)
+                {
+                    return index;
+                }
+                else
+                {
+                    ++index;
+                }
+            }
+
+            return -1;
         }
 
         /// <summary>
@@ -165,43 +155,6 @@ namespace Scrabble.Game_Objects
 
             /// <summary>
             /// Returns a string of the details of why an <see cref="InvalidTurnQueueSizeException"/> was thrown.
-            /// </summary>
-            /// <returns>A string of exception details.</returns>
-            public override string ToString()
-            {
-                return this.message;
-            }
-        }
-
-        /// <summary>
-        /// An exception of this type means that one of the players in <see cref="turnQueue"/> was update incorrectly.
-        /// </summary>
-        public class InvalidPlayerUpdateException : Exception
-        {
-            /// <summary>
-            /// A string that contains the details of why an <see cref="InvalidPlayerUpdateException"/> was thrown.
-            /// </summary>
-            private string message;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="InvalidPlayerUpdateException"/> class.
-            /// </summary>
-            public InvalidPlayerUpdateException()
-            {
-                this.message = "InvalidPlayerUpdate: A player in a TurnQueue object was updated incorrectly.";
-            }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="InvalidPlayerUpdateException" /> class.
-            /// </summary>
-            /// <param name="message">The private member message will be set to message.</param>
-            public InvalidPlayerUpdateException(string message)
-            {
-                this.message = "InvalidPlayerUpdate: " + message;
-            }
-
-            /// <summary>
-            /// Returns a string of the details of why an <see cref="InvalidPlayerUpdateException"/> was thrown.
             /// </summary>
             /// <returns>A string of exception details.</returns>
             public override string ToString()
