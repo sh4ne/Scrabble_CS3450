@@ -8,7 +8,7 @@ namespace Scrabble.Game_Objects
 {  
     // Board class handles the list of tiles, and plays made to the board.
 
-    class Board
+    public class Board
     {
         //Contains the list of board tiles.
         private List<GameBoardSquare> SquaresList;

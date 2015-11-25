@@ -154,7 +154,7 @@ namespace Scrabble.PlayerClass.Tests
 
             exceptionWasThrown = false;
 
-            Game_Objects.LetterTile lt = new Game_Objects.LetterTile('E',1);
+            Game_Objects.LetterTile lt = new Game_Objects.LetterTile('E', 1);
             try
             {
                 lt = player.PopLetterTile(6);
@@ -192,6 +192,17 @@ namespace Scrabble.PlayerClass.Tests
                 exceptionWasThrown = true;
             }
             Assert.IsTrue(exceptionWasThrown);
+        }
+
+        [TestMethod()]
+        public void TurnPriorityTest()
+        {
+            Player p = new Player(1, "Blob");
+            p.HasTurnPriority = true;
+            Assert.IsTrue(p.HasTurnPriority);
+            p.HasTurnPriority = false;
+            Assert.IsFalse(p.HasTurnPriority);
+
         }
     }
 }
