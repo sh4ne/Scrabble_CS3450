@@ -53,9 +53,9 @@ namespace Scrabble.GameWorld
 
             foreach (Player player in this.players)
             {
-                for(int i = 0; i < 7; ++i)
+                for (int i = 0; i < 7; ++i)
                 {
-                    player.DrawLetterTile(bag.DrawLetterTile());
+                    player.DrawLetterTile(this.bag.DrawLetterTile());
                 }
             }
         }
