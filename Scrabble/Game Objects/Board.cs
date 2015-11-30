@@ -8,6 +8,7 @@ namespace Scrabble.Game_Objects
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -55,6 +56,12 @@ namespace Scrabble.Game_Objects
             if (play.GetParallelListLength() == 0)
             {
                 // Cuz that's kinda pointless.
+                return false;
+            }
+
+            if (play.GetParallelListLength() > 7)
+            {
+                // Yeah . . . no.
                 return false;
             }
 
@@ -467,6 +474,31 @@ namespace Scrabble.Game_Objects
             }
 
             return totalPoints * wordMultiplier;
+        }
+
+        public void DrawStuff()
+        {
+            StringBuilder drawnBoard = new StringBuilder();
+            StreamWriter sw = new StreamWriter("output.txt");
+            sw.WriteLine("[  ][0][1][2][3][4][5][6][7][8][9][A][B][C][D][E][F]");
+            for (int i = 0; i < this.squaresList.Count; ++i)
+            {
+                if (i % 15 == 0)
+                {
+                    sw.WriteLine(drawnBoard.ToString());
+                    drawnBoard.Clear();
+                    drawnBoard.Append("[" + (i/15).ToString() + "]");
+                }
+                if (this.squaresList[i].IsEmpty())
+                {
+                    drawnBoard.Append("[ ]");
+                } else
+                {
+                    drawnBoard.Append("[" + squaresList[i].ContainedLetterTile.LetterValue + "]");
+                }
+            }
+            sw.WriteLine();
+            sw.Close();
         }
 
         /// <summary>
