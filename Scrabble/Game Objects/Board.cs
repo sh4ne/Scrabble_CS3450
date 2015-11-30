@@ -394,6 +394,26 @@ namespace Scrabble.Game_Objects
                     }
                 }
 
+                // Check for gaps between letters in the play, and score them.
+                List<int> coordsX = new List<int>();
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    coordsX.Add(play.GetCoordinateX(i));
+                }
+
+                coordsX.Sort();
+                count = 1;
+                for (int i = 0; i < coordsX.Count - 1; ++i)
+                {
+                    while (coordsX[i] + count < coordsX[i + 1])
+                    {
+                        horizontalWordPoints += this.ScoreOneTile(coordsX[i] + count, play.GetCoordinateY(0));
+                        ++count;
+                    }
+
+                    count = 1;
+                }
+
                 horizontalWordPoints *= horizontalWordMultiplier;
                 totalPoints += horizontalWordPoints;
             }
@@ -451,7 +471,7 @@ namespace Scrabble.Game_Objects
                 count = 1;
                 while (true)
                 {
-                    if (maxY + count > 14 || this.boardGrid[play.GetCoordinateY(0), maxY + count].IsEmpty())
+                    if (maxY + count > 14 || this.boardGrid[play.GetCoordinateX(0), maxY + count].IsEmpty())
                     {
                         break;
                     }
@@ -460,6 +480,26 @@ namespace Scrabble.Game_Objects
                         verticalWordPoints += this.ScoreOneTile(play.GetCoordinateY(0), maxY + count);
                         ++count;
                     }
+                }
+
+                // Check for gaps between letters in the play, and score them.
+                List<int> coordsY = new List<int>();
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    coordsY.Add(play.GetCoordinateY(i));
+                }
+
+                coordsY.Sort();
+                count = 1;
+                for (int i = 0; i < coordsY.Count - 1; ++i)
+                {
+                    while (coordsY[i] + count < coordsY[i + 1])
+                    {
+                        verticalWordPoints += this.ScoreOneTile(play.GetCoordinateX(0), coordsY[i] + count);
+                        ++count;
+                    }
+
+                    count = 1;
                 }
 
                 verticalWordPoints *= verticalWordMultiplier;
