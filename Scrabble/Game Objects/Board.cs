@@ -28,11 +28,6 @@ namespace Scrabble.Game_Objects
         private GameBoardSquareGrid boardGrid;
 
         /// <summary>
-        /// The most recent play to be added to the board.
-        /// </summary>
-        private Play mostRecentPlay;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Board" /> class.
         /// </summary>
         public Board()
@@ -63,6 +58,29 @@ namespace Scrabble.Game_Objects
                 return false;
             }
 
+            if (play.GetParallelListLength() == 1 && this.boardGrid[7, 7].IsEmpty())
+            {
+                // The first play has to have at least 2 letters in it.
+                return false;
+            }
+
+            // Make sure the first play puts a LetterTile into the central square.
+            if (this.boardGrid[7, 7].IsEmpty())
+            {
+                bool putsTileInCentralSquare = false;
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    if (play.GetCoordinateX(i) == 7 && play.GetCoordinateY(i) == 7)
+                    {
+                        putsTileInCentralSquare = true;
+                    }
+                }
+                if (!putsTileInCentralSquare)
+                {
+                    return false;
+                }
+            }
+
             bool allXCoordinatesAreTheSame = true;
             bool allYCoordinatesAreTheSame = true;
 
@@ -83,7 +101,55 @@ namespace Scrabble.Game_Objects
                 }
             }
 
-            if (!(allXCoordinatesAreTheSame || allYCoordinatesAreTheSame))
+            // Make sure that there are no duplicates in the play.
+            if (allXCoordinatesAreTheSame)
+            {
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    int numberOfMatches = 0;
+                    for (int j = 0; j < play.GetParallelListLength(); ++j)
+                    {
+                        if (play.GetCoordinateY(i) == play.GetCoordinateY(j))
+                        {
+                            ++numberOfMatches;
+                        }
+                    }
+
+                    if (numberOfMatches != 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        numberOfMatches = 0;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    int numberOfMatches = 0;
+                    for (int j = 0; j < play.GetParallelListLength(); ++j)
+                    {
+                        if (play.GetCoordinateX(i) == play.GetCoordinateX(j))
+                        {
+                            ++numberOfMatches;
+                        }
+                    }
+
+                    if (numberOfMatches != 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        numberOfMatches = 0;
+                    }
+                }
+            }
+
+            if (!((allXCoordinatesAreTheSame ^ allYCoordinatesAreTheSame) || play.GetParallelListLength() == 1))
             {
                 return false;
             }
@@ -118,11 +184,12 @@ namespace Scrabble.Game_Objects
                 for (int i = 0; i < play.GetParallelListLength(); ++i)
                 {
                     coordsY.Add(play.GetCoordinateY(i));
-                    coordsY.Sort();
                 }
 
+                coordsY.Sort();
+
                 int prevY = coordsY[0];
-                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                for (int i = 1; i < play.GetParallelListLength(); ++i)
                 {
                     while (coordsY[i] != prevY + 1)
                     {
@@ -130,8 +197,11 @@ namespace Scrabble.Game_Objects
                         {
                             return false;
                         }
+
                         ++prevY;
                     }
+
+                    ++prevY;
                 }
             }
 
@@ -140,22 +210,68 @@ namespace Scrabble.Game_Objects
                 List<int> coordsX = new List<int>();
                 for (int i = 0; i < play.GetParallelListLength(); ++i)
                 {
-                    coordsX.Add(play.GetCoordinateX(i));
-                    coordsX.Sort();
+                    coordsX.Add(play.GetCoordinateX(i)); 
                 }
 
-                int prevY = coordsX[0];
-                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                coordsX.Sort();
+
+                int prevX = coordsX[0];
+                for (int i = 1; i < play.GetParallelListLength(); ++i)
                 {
-                    while (coordsX[i] != prevY + 1)
+                    while (coordsX[i] != prevX + 1)
                     {
-                        if (this.boardGrid[coordX, prevY + 1].IsEmpty())
+                        if (this.boardGrid[prevX + 1, coordY].IsEmpty())
                         {
                             return false;
                         }
-                        ++prevY;
+
+                        ++prevX;
+                    }
+
+                    ++prevX;
+                }
+            }
+
+            // Make sure that at least one of the letters in the play is adjacent to a letter on the board,
+            // if a play has been added to the board.
+            if (!this.boardGrid[7, 7].IsEmpty())
+            {
+                bool playIsAdjacentToSomething = false;
+                for (int i = 0; i < play.GetParallelListLength(); ++ i)
+                {
+                    int x = play.GetCoordinateX(i);
+                    int y = play.GetCoordinateY(i);
+
+                    // Check down.
+                    if (y < 14 && !this.boardGrid[x, y + 1].IsEmpty())
+                    {
+                        playIsAdjacentToSomething = true;
+                        break;
+                    }
+
+                    // Check up.
+                    if (y > 0 && !this.boardGrid[x, y - 1].IsEmpty())
+                    {
+                        playIsAdjacentToSomething = true;
+                        break;
+                    }
+
+                    // Check left.
+                    if (x > 0 && !this.boardGrid[x - 1, y].IsEmpty())
+                    {
+                        playIsAdjacentToSomething = true;
+                        break;
+                    }
+
+                    // Check right.
+                    if (x < 14 && !this.boardGrid[x + 1, y].IsEmpty())
+                    {
+                        playIsAdjacentToSomething = true;
+                        break;
                     }
                 }
+
+                return playIsAdjacentToSomething;
             }
 
             return true;
