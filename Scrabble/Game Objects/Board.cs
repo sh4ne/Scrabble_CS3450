@@ -314,7 +314,7 @@ namespace Scrabble.Game_Objects
                 int x = play.GetCoordinateX(i);
                 int y = play.GetCoordinateY(i);
                 
-                if (!this.boardGrid[x, y].Equals(play.GetLetterTile(i))) 
+                if (!this.boardGrid[x, y].ContainedLetterTile.Equals(play.GetLetterTile(i))) 
                 {
                     throw new InvalidPlayException();
                 }
@@ -346,6 +346,53 @@ namespace Scrabble.Game_Objects
                     horizontalWordPoints += this.ScoreOneTile(play.GetCoordinateX(i), play.GetCoordinateY(i));
                 }
 
+                // Get the points from the adjacent squares to the left and right of the played letters.
+                int minX = play.GetCoordinateX(0);
+                int maxX = minX;
+
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    if (minX > play.GetCoordinateX(i))
+                    {
+                        minX = play.GetCoordinateX(i);
+                    }
+
+                    if (maxX < play.GetCoordinateX(i))
+                    {
+                        maxX = play.GetCoordinateX(i);
+                    }
+                }
+
+                // Go left.
+                int count = 1;
+                while (true)
+                {
+                    if (minX - count < 0 || this.boardGrid[minX - count, play.GetCoordinateY(0)].IsEmpty())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        horizontalWordPoints += ScoreOneTile(minX - count, play.GetCoordinateY(0));
+                        ++count;
+                    }
+                }
+
+                // Go right.
+                count = 1;
+                while (true)
+                {
+                    if (maxX + count > 14 || this.boardGrid[maxX + count, play.GetCoordinateY(0)].IsEmpty())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        horizontalWordPoints += ScoreOneTile(maxX + count, play.GetCoordinateY(0));
+                        ++count;
+                    }
+                }
+
                 horizontalWordPoints *= horizontalWordMultiplier;
                 totalPoints += horizontalWordPoints;
             }
@@ -365,6 +412,53 @@ namespace Scrabble.Game_Objects
                 {
                     totalPoints += this.ScoreOneHorizontalWord(play.GetCoordinateX(i), play.GetCoordinateY(i));
                     verticalWordPoints += this.ScoreOneTile(play.GetCoordinateX(i), play.GetCoordinateY(i));
+                }
+
+                // Get the points from the adjacent squares above and below the played letters.
+                int minY = play.GetCoordinateY(0);
+                int maxY = minY;
+
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    if (minY > play.GetCoordinateY(i))
+                    {
+                        minY = play.GetCoordinateY(i);
+                    }
+
+                    if (maxY < play.GetCoordinateY(i))
+                    {
+                        maxY = play.GetCoordinateY(i);
+                    }
+                }
+
+                //Go up.
+                int count = 1;
+                while (true)
+                {
+                    if (minY - count < 0 || this.boardGrid[play.GetCoordinateX(0), minY - count].IsEmpty())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        verticalWordPoints += ScoreOneTile(play.GetCoordinateX(0), minY - count);
+                        ++count;
+                    }
+                }
+
+                // Go down.
+                count = 1;
+                while (true)
+                {
+                    if (maxY + count > 14 || this.boardGrid[play.GetCoordinateY(0), maxY + count].IsEmpty())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        verticalWordPoints += ScoreOneTile(play.GetCoordinateY(0), maxY + count);
+                        ++count;
+                    }
                 }
 
                 verticalWordPoints *= verticalWordMultiplier;
@@ -401,8 +495,12 @@ namespace Scrabble.Game_Objects
         /// values of all of the <see cref="GameBoardSquare"/>s to the left and right of the one at location (x, y.)</returns>
         private int ScoreOneHorizontalWord(int x, int y)
         {
+            // Make sure that the word is longer than 1 tile.
+
+
             int wordMultiplier = this.boardGrid[x, y].WordMultiplier;
             int totalPoints = 0;
+            bool shouldScore = false;
 
             // Score left
             int count = 1;
@@ -414,6 +512,8 @@ namespace Scrabble.Game_Objects
                 }
 
                 totalPoints += this.ScoreOneTile(x - count, y);
+                shouldScore = true;
+                ++count;
             }
 
             // Score here
@@ -429,8 +529,14 @@ namespace Scrabble.Game_Objects
                 }
 
                 totalPoints += this.ScoreOneTile(x + count, y);
+                shouldScore = true;
+                ++count;
             }
 
+            if (!shouldScore)
+            {
+                return 0;
+            }
             return totalPoints * wordMultiplier;
         }
 
@@ -445,6 +551,7 @@ namespace Scrabble.Game_Objects
         {
             int wordMultiplier = this.boardGrid[x, y].WordMultiplier;
             int totalPoints = 0;
+            bool shouldScore = false;
 
             // Score down
             int count = 1;
@@ -456,6 +563,8 @@ namespace Scrabble.Game_Objects
                 }
 
                 totalPoints += this.ScoreOneTile(x, y - count);
+                shouldScore = true;
+                ++count;
             }
 
             // Score here
@@ -471,8 +580,14 @@ namespace Scrabble.Game_Objects
                 }
 
                 totalPoints += this.ScoreOneTile(x, y + count);
+                shouldScore = true;
+                ++count;
             }
 
+            if(!shouldScore)
+            {
+                return 0;
+            }
             return totalPoints * wordMultiplier;
         }
 
