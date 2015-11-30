@@ -29,6 +29,16 @@ namespace Scrabble.Game_Objects
         private GameBoardSquareGrid boardGrid;
 
         /// <summary>
+        /// The last play to be added to the board.
+        /// </summary>
+        private Play lastPlay;
+
+        /// <summary>
+        /// Is true if the last play is not on the board (or if there has been no last play);
+        /// </summary>
+        private bool lastPlayIsNull;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Board" /> class.
         /// </summary>
         public Board()
@@ -44,6 +54,7 @@ namespace Scrabble.Game_Objects
             }
 
             this.boardGrid = new GameBoardSquareGrid(this.squaresList);
+            this.lastPlayIsNull = true;
         }
 
         /// <summary>
@@ -300,14 +311,42 @@ namespace Scrabble.Game_Objects
             {
                 this.boardGrid[play.GetCoordinateX(i), play.GetCoordinateY(i)].InsertLetterTile(play.GetLetterTile(i));
             }
+
+            this.lastPlay = play;
+            this.lastPlayIsNull = false;
+        }
+
+        /// <summary>
+        /// Remove the most recent play from the board, and return its LetterTiles.
+        /// </summary>
+        /// <returns>The LetterTiles from the most recent play to be added to the board.</returns>
+        public List<LetterTile> RemoveLastPlay()
+        {
+            List<LetterTile> removedLetters = new List<LetterTile>();
+            if (this.lastPlayIsNull)
+            {
+                return removedLetters;
+            }
+            else
+            {
+                this.lastPlayIsNull = true;
+                for (int i = 0; i < this.lastPlay.GetParallelListLength(); ++i)
+                {
+                    removedLetters.Add(this.boardGrid[this.lastPlay.GetCoordinateX(i), this.lastPlay.GetCoordinateY(i)].RemoveLetterTile());
+                }
+
+                return removedLetters;
+            }
         }
 
         /// <summary>
         /// Scores a <see cref="Play"/> that was already added to the board.
         /// </summary>
         /// <param name="play">The <see cref="Play"/> to be scored.</param>
+        /// <param name="shouldRemoveMultipliers">Tells whether the <see cref="GameBoardSquare"/>s which are being filled by
+        /// the <see cref="LetterTile"/>s in play should have their score multipliers set to 1.</param>
         /// <returns>The score of a <see cref="Play"/> that was already added to the board.</returns>
-        public int ScorePlay(Play play)
+        public int ScorePlay(Play play, bool shouldRemoveMultipliers)
         {
             // Make sure the play is already on the board.
             for (int i = 0; i < play.GetParallelListLength(); ++i)
@@ -506,10 +545,19 @@ namespace Scrabble.Game_Objects
                 totalPoints += verticalWordPoints;
             }
 
-            // Clear the word and letter multipliers of the GameBoardSquares in the play.
-            for (int i = 0; i < play.GetParallelListLength(); ++i)
+            if (shouldRemoveMultipliers)
             {
-                this.boardGrid[play.GetCoordinateX(i), play.GetCoordinateY(i)].RemoveScoreMultipliers();
+                // Clear the word and letter multipliers of the GameBoardSquares in the play.
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    this.boardGrid[play.GetCoordinateX(i), play.GetCoordinateY(i)].RemoveScoreMultipliers();
+                }
+            }
+
+            // Give the 50 point bonus for using 7 LetterTiles.
+            if (play.GetParallelListLength() == 7)
+            {
+                totalPoints += 50;
             }
 
             return totalPoints;
