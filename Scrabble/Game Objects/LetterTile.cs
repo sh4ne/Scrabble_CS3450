@@ -83,6 +83,11 @@ namespace Scrabble.Game_Objects
             return this.LetterValue == 'n';
         }
 
+        /// <summary>
+        /// Compares two <see cref="LetterTile"/> objects, and tells whether they are equal.
+        /// </summary>
+        /// <param name="other">The <see cref="LetterTile"/> to be compared with this.</param>
+        /// <returns>True if this == other. Returns false otherwise.</returns>
         public bool Equals(LetterTile other)
         {
             return this.PointValue == other.PointValue && this.LetterValue == other.LetterValue;

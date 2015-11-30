@@ -136,7 +136,7 @@ namespace Scrabble.PlayerClass
         }
 
         /// <summary>
-        /// Gets <see cref="hasVotedToEndGame"/>.
+        /// Gets a value indicating whether <see cref="hasVotedToEndGame"/>.
         /// </summary>
         public bool HasVotedToEndGame
         {
