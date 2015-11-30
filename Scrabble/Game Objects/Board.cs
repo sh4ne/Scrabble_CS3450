@@ -82,6 +82,7 @@ namespace Scrabble.Game_Objects
                         putsTileInCentralSquare = true;
                     }
                 }
+
                 if (!putsTileInCentralSquare)
                 {
                     return false;
@@ -244,7 +245,7 @@ namespace Scrabble.Game_Objects
             if (!this.boardGrid[7, 7].IsEmpty())
             {
                 bool playIsAdjacentToSomething = false;
-                for (int i = 0; i < play.GetParallelListLength(); ++ i)
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
                 {
                     int x = play.GetCoordinateX(i);
                     int y = play.GetCoordinateY(i);
@@ -373,7 +374,7 @@ namespace Scrabble.Game_Objects
                     }
                     else
                     {
-                        horizontalWordPoints += ScoreOneTile(minX - count, play.GetCoordinateY(0));
+                        horizontalWordPoints += this.ScoreOneTile(minX - count, play.GetCoordinateY(0));
                         ++count;
                     }
                 }
@@ -388,7 +389,7 @@ namespace Scrabble.Game_Objects
                     }
                     else
                     {
-                        horizontalWordPoints += ScoreOneTile(maxX + count, play.GetCoordinateY(0));
+                        horizontalWordPoints += this.ScoreOneTile(maxX + count, play.GetCoordinateY(0));
                         ++count;
                     }
                 }
@@ -431,7 +432,7 @@ namespace Scrabble.Game_Objects
                     }
                 }
 
-                //Go up.
+                // Go up.
                 int count = 1;
                 while (true)
                 {
@@ -441,7 +442,7 @@ namespace Scrabble.Game_Objects
                     }
                     else
                     {
-                        verticalWordPoints += ScoreOneTile(play.GetCoordinateX(0), minY - count);
+                        verticalWordPoints += this.ScoreOneTile(play.GetCoordinateX(0), minY - count);
                         ++count;
                     }
                 }
@@ -456,7 +457,7 @@ namespace Scrabble.Game_Objects
                     }
                     else
                     {
-                        verticalWordPoints += ScoreOneTile(play.GetCoordinateY(0), maxY + count);
+                        verticalWordPoints += this.ScoreOneTile(play.GetCoordinateY(0), maxY + count);
                         ++count;
                     }
                 }
@@ -496,8 +497,6 @@ namespace Scrabble.Game_Objects
         private int ScoreOneHorizontalWord(int x, int y)
         {
             // Make sure that the word is longer than 1 tile.
-
-
             int wordMultiplier = this.boardGrid[x, y].WordMultiplier;
             int totalPoints = 0;
             bool shouldScore = false;
@@ -537,6 +536,7 @@ namespace Scrabble.Game_Objects
             {
                 return 0;
             }
+
             return totalPoints * wordMultiplier;
         }
 
@@ -584,36 +584,12 @@ namespace Scrabble.Game_Objects
                 ++count;
             }
 
-            if(!shouldScore)
+            if (!shouldScore)
             {
                 return 0;
             }
-            return totalPoints * wordMultiplier;
-        }
 
-        public void DrawStuff()
-        {
-            StringBuilder drawnBoard = new StringBuilder();
-            StreamWriter sw = new StreamWriter("output.txt");
-            sw.WriteLine("[  ][0][1][2][3][4][5][6][7][8][9][A][B][C][D][E][F]");
-            for (int i = 0; i < this.squaresList.Count; ++i)
-            {
-                if (i % 15 == 0)
-                {
-                    sw.WriteLine(drawnBoard.ToString());
-                    drawnBoard.Clear();
-                    drawnBoard.Append("[" + (i/15).ToString() + "]");
-                }
-                if (this.squaresList[i].IsEmpty())
-                {
-                    drawnBoard.Append("[ ]");
-                } else
-                {
-                    drawnBoard.Append("[" + squaresList[i].ContainedLetterTile.LetterValue + "]");
-                }
-            }
-            sw.WriteLine();
-            sw.Close();
+            return totalPoints * wordMultiplier;
         }
 
         /// <summary>
@@ -636,7 +612,7 @@ namespace Scrabble.Game_Objects
             if (y == 1 || y == 13)
             {
                 // Double word scores on rows 1 and 13.
-                if (x == y)
+                if (x == 1 || x == 13)
                 {
                     return 2;
                 }
@@ -645,7 +621,7 @@ namespace Scrabble.Game_Objects
             if (y == 2 || y == 12)
             {
                 // Double word scores on rows 2 and 12.
-                if (x == y)
+                if (x == 2 || x == 12)
                 {
                     return 2;
                 }
@@ -654,7 +630,7 @@ namespace Scrabble.Game_Objects
             if (y == 3 || y == 11)
             {
                 // Double word scores on rows 3 and 11.
-                if (x == y)
+                if (x == 3 || x == 11)
                 {
                     return 2;
                 }
@@ -663,7 +639,7 @@ namespace Scrabble.Game_Objects
             if (y == 4 || y == 10)
             {
                 // Double word scores on rows 4 and 10.
-                if (x == y)
+                if (x == 4 || x == 10)
                 {
                     return 2;
                 }
