@@ -60,7 +60,7 @@ namespace ScrabbleUnitTest
                 // should error before this line.
                 Assert.IsTrue(false);
             }
-            catch (Exception err)
+            catch
             {
                 Assert.IsTrue(true);
             }
