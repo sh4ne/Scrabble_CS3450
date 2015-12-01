@@ -18,5 +18,22 @@ namespace Scrabble.GameWorld
     /// </summary>
     public class GameWorld
     {
+        private string GameId{ get; set; }
+
+        public override string ToString()
+        {
+            string toReturn;
+            toReturn = "Game ID: " + GameId;
+            return toReturn;
+        }
+
+        public string getGameId()
+        {
+            return GameId;
+        }
+        public void setGameId(string name)
+        {
+            GameId = name;
+        }
     }
 }

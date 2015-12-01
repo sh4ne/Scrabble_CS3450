@@ -31,15 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorldGUI));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
@@ -64,6 +64,27 @@
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
+            // 
+            // tToolStripMenuItem
+            // 
+            this.tToolStripMenuItem.Name = "tToolStripMenuItem";
+            resources.ApplyResources(this.tToolStripMenuItem, "tToolStripMenuItem");
+            // 
+            // tToolStripMenuItem1
+            // 
+            this.tToolStripMenuItem1.Name = "tToolStripMenuItem1";
+            resources.ApplyResources(this.tToolStripMenuItem1, "tToolStripMenuItem1");
+            // 
+            // tToolStripMenuItem2
+            // 
+            this.tToolStripMenuItem2.Name = "tToolStripMenuItem2";
+            resources.ApplyResources(this.tToolStripMenuItem2, "tToolStripMenuItem2");
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // serverToolStripMenuItem
             // 
@@ -94,27 +115,6 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             // 
-            // tToolStripMenuItem
-            // 
-            this.tToolStripMenuItem.Name = "tToolStripMenuItem";
-            resources.ApplyResources(this.tToolStripMenuItem, "tToolStripMenuItem");
-            // 
-            // tToolStripMenuItem1
-            // 
-            this.tToolStripMenuItem1.Name = "tToolStripMenuItem1";
-            resources.ApplyResources(this.tToolStripMenuItem1, "tToolStripMenuItem1");
-            // 
-            // tToolStripMenuItem2
-            // 
-            this.tToolStripMenuItem2.Name = "tToolStripMenuItem2";
-            resources.ApplyResources(this.tToolStripMenuItem2, "tToolStripMenuItem2");
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
             // button1
             // 
             resources.ApplyResources(this.button1, "button1");
@@ -127,6 +127,7 @@
             resources.ApplyResources(this.button2, "button2");
             this.button2.Name = "button2";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // WorldGUI
             // 

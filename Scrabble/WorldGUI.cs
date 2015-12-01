@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace Scrabble
 {
@@ -48,8 +49,14 @@ namespace Scrabble
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form server = new Server.ServerGUI();
-            server.Show();
+            Form admin = new Server.adminPass();
+            admin.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form client = new Server.ClientGUI();
+            client.Show();
         }
     }
 }
