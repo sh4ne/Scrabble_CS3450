@@ -21,8 +21,7 @@ namespace Scrabble.Server
         private void ClientGUI_Load(object sender, EventArgs e)
         {
           client = new EasyNetwork.Client("tcp://localhost:1982");
-
-            client.Start();
+          client.Start();
         }
 
         private void newWorld_Click(object sender, EventArgs e)
@@ -31,10 +30,9 @@ namespace Scrabble.Server
             Random thias = new Random();
             int fourdigit = thias.Next(0001, 9999);
             textBox1.Text += (fourdigit.ToString() + "\r\n");
-            temp.setGameId(fourdigit.ToString());
-            textBox1.Text += (temp.getGameId() + "\r\n");
+            temp.GameId = fourdigit.ToString();
+            textBox1.Text += (temp.GameId + "\r\n");
             client.Send(temp);
-
         }
     }
 }

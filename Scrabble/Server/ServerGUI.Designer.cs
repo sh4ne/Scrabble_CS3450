@@ -28,26 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.comBox = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameList = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.addgamebutton = new System.Windows.Forms.Button();
+            this.comLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // comBox
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.textBox1.Location = new System.Drawing.Point(304, 83);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(315, 465);
-            this.textBox1.TabIndex = 0;
+            this.comBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.comBox.Cursor = System.Windows.Forms.Cursors.AppStarting;
+            this.comBox.Location = new System.Drawing.Point(304, 83);
+            this.comBox.Multiline = true;
+            this.comBox.Name = "comBox";
+            this.comBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.comBox.Size = new System.Drawing.Size(315, 465);
+            this.comBox.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -89,25 +89,24 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Running Games";
             // 
-            // addgamebutton
+            // comLabel
             // 
-            this.addgamebutton.Location = new System.Drawing.Point(194, 159);
-            this.addgamebutton.Name = "addgamebutton";
-            this.addgamebutton.Size = new System.Drawing.Size(75, 23);
-            this.addgamebutton.TabIndex = 4;
-            this.addgamebutton.Text = "Add Game";
-            this.addgamebutton.UseVisualStyleBackColor = true;
-            this.addgamebutton.Click += new System.EventHandler(this.addgamebutton_Click);
+            this.comLabel.AutoSize = true;
+            this.comLabel.Location = new System.Drawing.Point(304, 67);
+            this.comLabel.Name = "comLabel";
+            this.comLabel.Size = new System.Drawing.Size(84, 13);
+            this.comLabel.TabIndex = 4;
+            this.comLabel.Text = "Communications";
             // 
             // ServerGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(631, 570);
-            this.Controls.Add(this.addgamebutton);
+            this.Controls.Add(this.comLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gameList);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.comBox);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ServerGUI";
@@ -122,12 +121,12 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox comBox;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ListBox gameList;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button addgamebutton;
+        private System.Windows.Forms.Label comLabel;
     }
 }
