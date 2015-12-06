@@ -39,9 +39,14 @@ namespace Scrabble.PlayerClass
         private bool hasTurnPriority;
 
         /// <summary>
-        /// The player's LetterTileRack.
+        /// The player's <see cref="LetterTileRack"/>.
         /// </summary>
         private LetterTileRack tileRack;
+
+        /// <summary>
+        /// A value that tells whether the player has voted to end the game.
+        /// </summary>
+        private bool hasVotedToEndGame;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player" /> class.
@@ -56,6 +61,7 @@ namespace Scrabble.PlayerClass
             this.score = 0;
             this.hasTurnPriority = false;
             this.tileRack = new LetterTileRack();
+            this.hasVotedToEndGame = false;
         }
 
         /// <summary>
@@ -119,13 +125,24 @@ namespace Scrabble.PlayerClass
         }
 
         /// <summary>
-        /// Gets this.tileRack.
+        /// Gets <see cref="tileRack"/>.
         /// </summary>
         public LetterTileRack TileRack
         {
             get
             {
                 return this.tileRack;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether <see cref="hasVotedToEndGame"/>.
+        /// </summary>
+        public bool HasVotedToEndGame
+        {
+            get
+            {
+                return this.hasVotedToEndGame;
             }
         }
 
@@ -182,6 +199,14 @@ namespace Scrabble.PlayerClass
         public LetterTile PopLetterTile(int index)
         {
             return this.tileRack.PopLetterTile(index);
+        }
+
+        /// <summary>
+        /// Toggles <see cref="hasVotedToEndGame"/>.
+        /// </summary>
+        public void ToggleVote()
+        {
+            this.hasVotedToEndGame = !this.hasVotedToEndGame;
         }
     }
 }

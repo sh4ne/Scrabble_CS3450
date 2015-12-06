@@ -11,6 +11,8 @@ namespace Scrabble.GameWorld
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Scrabble.Game_Objects;
+    using Scrabble.PlayerClass;
 
     /// <summary>
     /// A GameWorld object contains all the objects necessary to conduct 1 game of Scrabble (1 game board,
@@ -18,7 +20,34 @@ namespace Scrabble.GameWorld
     /// </summary>
     public class GameWorld
     {
-        private string gameId;
+        public override string ToString()
+        {
+            string toReturn;
+            toReturn = "Game World- " + GameId;
+            return toReturn;
+        }
+
+        /// <summary>
+        /// The <see cref="Board"/> on which the game is to be played.
+        /// </summary>
+        private Board gameBoard;
+
+        /// <summary>
+        /// The <see cref="Bag"/> which contains all of the <see cref="LetterTile"/>s to start off with.
+        /// </summary>
+        private Bag bag;
+
+        /// <summary>
+        /// The players who are playing the game. There should be 2-4 players.
+        /// </summary>
+        private List<Player> players;
+
+        /// <summary>
+        /// The turn order of the <see cref="Player"/>s.
+        /// </summary>
+        private TurnOrder turnOrder;
+		
+		private string gameId;
         public string GameId{
             get
             {
@@ -30,11 +59,25 @@ namespace Scrabble.GameWorld
             }
         }
 
-        public override string ToString()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameWorld" /> class.
+        /// </summary>
+        /// <param name="players">A list of the <see cref="Player"/>s who are playing the game.</param>
+        public GameWorld(List<Player> players)
         {
-            string toReturn;
-            toReturn = "Game World- " + GameId;
-            return toReturn;
+            this.players = players;
+            this.turnOrder = new TurnOrder(players);
+            this.bag = new Bag();
+            this.gameBoard = new Board();
+
+            foreach (Player player in this.players)
+            {
+                for (int i = 0; i < 7; ++i)
+                {
+                    player.DrawLetterTile(this.bag.DrawLetterTile());
+                }
+            }
+
         }
     }
 }

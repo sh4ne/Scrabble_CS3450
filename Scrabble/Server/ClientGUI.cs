@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Scrabble.Game_Objects;
 
 namespace Scrabble.Server
 {
@@ -24,15 +25,29 @@ namespace Scrabble.Server
           client.Start();
         }
 
-        private void newWorld_Click(object sender, EventArgs e)
+        private void newWorld_Click(object sender, EventArgs exc)
         {
-            GameWorld.GameWorld temp = new GameWorld.GameWorld();
-            Random thias = new Random();
-            int fourdigit = thias.Next(0001, 9999);
-            textBox1.Text += (fourdigit.ToString() + "\r\n");
-            temp.GameId = fourdigit.ToString();
-            textBox1.Text += (temp.GameId + "\r\n");
-            client.Send(temp);
+            try {
+                List<PlayerClass.Player> blah = new List<PlayerClass.Player>();
+                PlayerClass.Player tempPlayer = new PlayerClass.Player(0001, "Shane");
+                PlayerClass.Player tempPlayerw = new PlayerClass.Player(0001, "Wane");
+                PlayerClass.Player tempPlayerp = new PlayerClass.Player(0034, "ppane");
+                blah.Add(tempPlayer);
+                blah.Add(tempPlayerw);
+                blah.Add(tempPlayerp);
+                GameWorld.GameWorld temp = new GameWorld.GameWorld(blah);
+                Random thias = new Random();
+                int fourdigit = thias.Next(0001, 9999);
+                textBox1.Text += (fourdigit.ToString() + "\r\n");
+                temp.GameId = fourdigit.ToString();
+                textBox1.Text += (temp.GameId + "\r\n");
+                client.Send(temp);
+            }
+            catch(TurnOrder.InvalidTurnQueueSizeException except)
+            {
+                textBox1.Text += ("EXCEPTION: " + except.ToString());
+            }
+           
         }
     }
 }
