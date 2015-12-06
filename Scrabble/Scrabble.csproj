@@ -127,15 +127,18 @@
     <None Include="Resources\c.jpg" />
     <None Include="Resources\d.jpg" />
     <None Include="Resources\star.jpg" />
-    <Content Include="Server\dictionary.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyNetwork\EasyNetwork.csproj">
       <Project>{b334b401-b417-4b74-862e-1fd8709ffa9f}</Project>
       <Name>EasyNetwork</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dictionary.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\myDictionary.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

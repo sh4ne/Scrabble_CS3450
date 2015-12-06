@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 
 
 namespace Scrabble.Server
@@ -13,26 +13,12 @@ namespace Scrabble.Server
     /// </summary>
     public class Dictionary
     {
-        private List<String> dictionary = new List<String>();
+        private List<String> dictionary;
 
-        public Dictionary(String filename)
+        public Dictionary()
         {
-            try
-            {
-                using (StreamReader fileIn = new StreamReader(filename))
-                {
-                    string line;
-                    while ((line = fileIn.ReadLine()) != null)
-                    {
-                        dictionary.Add(line);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Dictionary file could not be opened.");
-                Console.WriteLine(e.Message);
-            }
+            string resource_data = Properties.Resources.myDictionary;
+            dictionary = resource_data.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
         public bool containsWord(String word)
         {

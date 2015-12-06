@@ -6,17 +6,18 @@ namespace Scrabble.Server.Tests
     public class DictionaryTests
     {
         [TestMethod()]
-        public void DictionaryTest()
+        public void containsWordTest()
         {
-            Assert.IsTrue(System.IO.File.Exists("dictionary.txt"));
+            Dictionary dictionary = new Dictionary();
+            Assert.IsTrue(dictionary.containsWord("alphabet"));
         }
 
         [TestMethod()]
-        public void containsWordTest()
+        public void notContainsWordTest()
         {
-            Dictionary dictionary = new Dictionary("dictionary.txt");
-            Assert.IsTrue(dictionary.containsWord("alphabet"));
-            Assert.IsFalse(dictionary.containsWord("jsjsjsjs"));
+            Dictionary dictionary = new Dictionary();
+            Assert.IsFalse(dictionary.containsWord("jsjsjsjsjs"));
         }
+
     }
 }

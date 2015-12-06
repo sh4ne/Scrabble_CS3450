@@ -151,6 +151,74 @@ namespace Scrabble.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to aa
+        ///aah
+        ///aahed
+        ///aahing
+        ///aahs
+        ///aal
+        ///aalii
+        ///aaliis
+        ///aals
+        ///aardvark
+        ///aardvarks
+        ///aardwolf
+        ///aardwolves
+        ///aargh
+        ///aarrgh
+        ///aarrghh
+        ///aas
+        ///aasvogel
+        ///aasvogels
+        ///ab
+        ///aba
+        ///abaca
+        ///abacas
+        ///abaci
+        ///aback
+        ///abacterial
+        ///abacus
+        ///abacuses
+        ///abaft
+        ///abaka
+        ///abakas
+        ///abalone
+        ///abalones
+        ///abamp
+        ///abampere
+        ///abamperes
+        ///abamps
+        ///abandon
+        ///abandoned
+        ///abandoner
+        ///abandoners
+        ///abandoning
+        ///abandonment
+        ///abandonments
+        ///abandons
+        ///abapical
+        ///abas
+        ///abase
+        ///abased
+        ///abasedly
+        ///abasement
+        ///abasements
+        ///abaser
+        ///abasers
+        ///abases
+        ///abash
+        ///abashed
+        ///abashes
+        ///abashing
+        ///ab [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string myDictionary {
+            get {
+                return ResourceManager.GetString("myDictionary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap star {
