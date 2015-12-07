@@ -74,6 +74,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ScrabbleResources.resx</DependentUpon>
+	  </Compile>
     <Compile Include="Server\adminPass.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +94,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Game Objects\GUIBoard.resx">
       <DependentUpon>GUIBoard.cs</DependentUpon>
+    </EmbeddedResource>
+	    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Server\ServerGUI.cs">
       <SubType>Form</SubType>
@@ -119,6 +125,7 @@
     <EmbeddedResource Include="ScrabbleResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ScrabbleResources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
     <EmbeddedResource Include="Server\adminPass.resx">
       <DependentUpon>adminPass.cs</DependentUpon>
     </EmbeddedResource>
