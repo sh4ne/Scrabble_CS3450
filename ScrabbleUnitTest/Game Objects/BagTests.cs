@@ -747,5 +747,15 @@ namespace Scrabble.Game_Objects.Tests
             }
             return exceptionWasThrown;
         }
+
+        [TestMethod()]
+        public void TestException()
+        {
+            var exc = new Bag.InvalidLetterTileInsertionException();
+            Assert.IsTrue(exc.ToString() == "InvalidLetterTileInsertion: A LetterTile was incorrectly inserted into a Bag.");
+
+            var exc2 = new Bag.InvalidLetterTileRemovalException();
+            Assert.IsTrue(exc2.ToString() == "InvalidLetterTileRemoval: A LetterTile was incorrectly removed from a Bag.");
+        }
     }
 }
