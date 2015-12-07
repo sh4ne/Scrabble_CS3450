@@ -76,8 +76,9 @@ namespace Scrabble.GameWorld
         }
 
         /// <summary>
-        /// Makes the <see cref="Player"/> with turn priority take his turn. If the PlayerID of play
-        /// does not match that of the player with turn priority, an exception will be thrown.
+        /// Makes the <see cref="Player"/> with turn priority take his turn, and score the most recent 
+        /// <see cref="Play"/> that was made before it (as well as give its <see cref="Player"/> new <see cref="LetterTiles"/>.
+        /// If the PlayerID of play does not match that of the player with turn priority, an exception will be thrown.
         /// </summary>
         /// <param name="play">The <see cref="Play"/> that the player is making.</param>
         public void MakePlayerTakeTurn(Play play)
@@ -99,10 +100,14 @@ namespace Scrabble.GameWorld
                 if (this.lastPlayIsInitialized)
                 {
                     this.turnOrder.Players[this.indexOfPlayerWhoLastMadeAPlay].AddToScore(this.gameBoard.ScorePlay(this.lastPlay, true));
+                    while (this.turnOrder.Players[this.indexOfPlayerWhoLastMadeAPlay].TileRack.LetterTileCount() < 7 && !(this.bag.LetterTileCount == 0))
+                    {
+                        this.turnOrder.Players[this.indexOfPlayerWhoLastMadeAPlay].DrawLetterTile(this.bag.DrawLetterTile());
+                    }
+
                     this.lastPlay = play;
                     this.indexOfPlayerWhoLastMadeAPlay = this.turnOrder.ActivePlayerIndex;
                     this.turnOrder.MoveToNextPlayer();
-                    
                 }
                 else
                 {
@@ -111,22 +116,70 @@ namespace Scrabble.GameWorld
                     this.turnOrder.MoveToNextPlayer();
                 }
 
-                // Put the new play on the board.
+                // Put the new play onto the board.
                 this.gameBoard.AddPlayToBoard(play);
             }
         }
 
+        /// <summary>
+        /// The <see cref="Player"/> who made the most recent <see cref="Play"/> will have all the words
+        /// in that <see cref="Play"/> checked against the dictionary. At least one of them is not in the dictionary,
+        /// he will have the <see cref="LetterTile"/>s used in that player returned to him. Otherwise, the challenging
+        /// <see cref="Player"/> will lose his next turn.
+        /// </summary>
+        /// <param name="challengedPlayerID">The ID of the <see cref="Player"/> whose <see cref="Play"/> has been challenged.</param>
+        /// <param name="challengingPlayerID">The ID of the <see cref="Player"/> who is challenging a <see cref="Play"/>.</param>
         public void ChallengeLastPlay(int challengedPlayerID, int challengingPlayerID)
         {
             List<string> words = this.gameBoard.GetWordsInPlay(this.lastPlay);
+
+            // These will either get initialized later, or an exception will get thrown because
+            // of bad input.
+            Player challengedPlayer = null;
+            Player challengingPlayer = null;
+            bool player1WasInitialized = false;
+            bool player2WasInitialized = false;
+            for (int i = 0; i < this.players.Count; ++i)
+            {
+                if (this.players[i].PlayerID == challengingPlayerID)
+                {
+                    challengingPlayer = this.players[i];
+                    player1WasInitialized = true;
+                }
+                else if (this.players[i].PlayerID == challengedPlayerID)
+                {
+                    challengedPlayer = this.players[i];
+                    player2WasInitialized = true;
+                }
+            }
+
+            if (!(player1WasInitialized && player2WasInitialized))
+            {
+                throw new InvalidChallengeException("Player " + challengingPlayerID.ToString() + " is not a valid challenger of player " + challengedPlayerID.ToString());
+            }
+
             if (this.CheckWords(words))
             {
                 // The challenger loses challenge.
-
+                if (this.turnOrder.Players[this.turnOrder.ActivePlayerIndex].PlayerID == challengingPlayerID)
+                {
+                    this.turnOrder.MoveToNextPlayer();
+                }
+                else
+                {
+                    challengingPlayer.IncrementSkipCount();
+                }
             }
             else
             {
-                // The challenger wins the challenge.
+                List<LetterTile> tiles = this.gameBoard.RemoveLastPlay();
+                foreach (LetterTile tile in tiles)
+                {
+                    challengedPlayer.DrawLetterTile(tile);
+                }
+
+                // Technically a lie, but whatever.
+                this.lastPlayIsInitialized = false;
             }
         }
 
@@ -170,7 +223,44 @@ namespace Scrabble.GameWorld
             }
 
             /// <summary>
-            /// Returns a string of the details of why an <see cref="InvalidTurnQueueSizeException"/> was thrown.
+            /// Returns a string of the details of why an <see cref="InvalidChallengeException"/> was thrown.
+            /// </summary>
+            /// <returns>A string of exception details.</returns>
+            public override string ToString()
+            {
+                return this.message;
+            }
+        }
+
+        /// <summary>
+        /// An exception of this type means that someone tried to make an invalid challenge.
+        /// </summary>
+        public class InvalidChallengeException : Exception
+        {
+            /// <summary>
+            /// A string that contains the details of why an <see cref="InvalidChallengeException"/> was thrown.
+            /// </summary>
+            private string message;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="InvalidChallengeException" /> class.
+            /// </summary>
+            public InvalidChallengeException()
+            {
+                this.message = "InvalidChallenge: A challenge was made incorrectly.";
+            }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="InvalidChallengeException"/> class.
+            /// </summary>
+            /// <param name="message">The private member message will be set to message.</param>
+            public InvalidChallengeException(string message)
+            {
+                this.message = "InvalidChallenge: " + message;
+            }
+
+            /// <summary>
+            /// Returns a string of the details of why an <see cref="InvalidChallengeException"/> was thrown.
             /// </summary>
             /// <returns>A string of exception details.</returns>
             public override string ToString()
