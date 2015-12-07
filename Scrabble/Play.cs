@@ -11,7 +11,7 @@ namespace Scrabble
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Scrabble.Game_Objects;
+    using global::Scrabble.Game_Objects;
 
     /// <summary>
     /// This class is responsible for holding data for a play after it has been selected by the user

@@ -35,13 +35,13 @@ namespace Scrabble.Server
         /// List of all of the necesary game objects needed for client connection.
         /// </summary>
         /// This is commented out due to data type error........
-        //private  List<GameWorld> gameObjects;
+        private  List<GameWorld.GameWorld> gameObjects;
 
         /// <summary>
         /// GameWorld object instance used for other players to connect to.
         /// </summary>
         /// This is commented out due to data type error.........
-        //private GameWorld gameWorld;
+        private GameWorld.GameWorld gameWorld;
 
         /// <summary>
         /// To store the latest game state as a string.
