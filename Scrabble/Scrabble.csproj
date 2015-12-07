@@ -52,12 +52,6 @@
     <Compile Include="Game Objects\Bag.cs" />
     <Compile Include="GameWorld\GameWorld.cs" />
     <Compile Include="Play.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Game Objects\Board.cs" />
     <Compile Include="Game Objects\GameBoardSquare.cs" />
     <Compile Include="Game Objects\TurnOrder.cs" />
@@ -67,11 +61,32 @@
     <Compile Include="Game Objects\LetterTile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\adminPass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Server\adminPass.Designer.cs">
+      <DependentUpon>adminPass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Server\Client.cs" />
+    <Compile Include="Server\ClientGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Server\ClientGUI.Designer.cs">
+      <DependentUpon>ClientGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Server\Dictionary.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Server\ServerGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Server\ServerGUI.Designer.cs">
+      <DependentUpon>ServerGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorldGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorldGUI.Designer.cs">
+      <DependentUpon>WorldGUI.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -81,6 +96,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Server\adminPass.resx">
+      <DependentUpon>adminPass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Server\ClientGUI.resx">
+      <DependentUpon>ClientGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Server\ServerGUI.resx">
+      <DependentUpon>ServerGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldGUI.resx">
+      <DependentUpon>WorldGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

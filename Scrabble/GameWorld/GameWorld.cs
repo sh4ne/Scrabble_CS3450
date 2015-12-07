@@ -20,6 +20,13 @@ namespace Scrabble.GameWorld
     /// </summary>
     public class GameWorld
     {
+        public override string ToString()
+        {
+            string toReturn;
+            toReturn = "Game World- " + GameId;
+            return toReturn;
+        }
+
         /// <summary>
         /// The <see cref="Board"/> on which the game is to be played.
         /// </summary>
@@ -39,6 +46,18 @@ namespace Scrabble.GameWorld
         /// The turn order of the <see cref="Player"/>s.
         /// </summary>
         private TurnOrder turnOrder;
+		
+		private string gameId;
+        public string GameId{
+            get
+            {
+                return this.gameId;
+            }
+            set
+            {
+                this.gameId = value;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameWorld" /> class.
@@ -58,6 +77,7 @@ namespace Scrabble.GameWorld
                     player.DrawLetterTile(this.bag.DrawLetterTile());
                 }
             }
+
         }
     }
 }
