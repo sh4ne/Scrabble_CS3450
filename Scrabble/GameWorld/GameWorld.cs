@@ -129,14 +129,14 @@ namespace Scrabble.GameWorld
                 // Put the new play onto the board.
                 this.gameBoard.AddPlayToBoard(play);
 
-                if (GameEndConditionsAreMet())
+                if (this.GameEndConditionsAreMet())
                 {
                     if (!this.CheckWords(this.gameBoard.GetWordsInPlay(play)))
                     {
                         List<LetterTile> tiles = this.gameBoard.RemoveLastPlay();
                         foreach (LetterTile tile in tiles)
                         {
-                            players[indexOfPlayerWhoLastMadeAPlay].DrawLetterTile(tile);
+                            this.players[this.indexOfPlayerWhoLastMadeAPlay].DrawLetterTile(tile);
                         }
 
                         // Technically a lie, but whatever.
@@ -228,13 +228,13 @@ namespace Scrabble.GameWorld
         /// <returns>True if the <see cref="Bag"/> is empty, and a <see cref="Player"/>'s <see cref="LetterTileRack"/> is empty, false otherwise.</returns>
         private bool GameEndConditionsAreMet()
         {
-            if(!(this.bag.LetterTileCount == 0))
+            if (!(this.bag.LetterTileCount == 0))
             {
                 return false;
             }
 
             int emptyRackCount = 0;
-            foreach(Player player in this.players)
+            foreach (Player player in this.players)
             {
                 if (player.TileRack.LetterTileCount() == 0)
                 {
