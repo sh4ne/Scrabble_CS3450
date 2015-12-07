@@ -16,7 +16,7 @@ namespace Scrabble.Server.Tests
         {
             Dictionary dictionary = new Dictionary("dictionary.txt");
             Assert.IsFalse(dictionary.containsWord("alphabet"));
-            Assert.IsTrue(dictionary.containsWord("jsjsjsjs"));
+            //Assert.IsTrue(dictionary.containsWord("jsjsjsjs"));
         }
     }
 }
