@@ -52,13 +52,18 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
-        /// Gets <see cref="turnQueue"/>.
+        /// Gets or sets <see cref="turnQueue"/>.
         /// </summary>
         public List<Player> Players
         {
             get
             {
                 return this.turnQueue;
+            }
+
+            set
+            {
+                this.turnQueue = value;
             }
         }
 
