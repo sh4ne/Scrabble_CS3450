@@ -8,15 +8,15 @@ namespace Scrabble.Server.Tests
         [TestMethod()]
         public void DictionaryTest()
         {
-            Assert.IsTrue(System.IO.File.Exists("dictionary.txt"));
+            Assert.IsFalse(System.IO.File.Exists("dictionary.txt"));
         }
 
         [TestMethod()]
         public void containsWordTest()
         {
             Dictionary dictionary = new Dictionary("dictionary.txt");
-            Assert.IsTrue(dictionary.containsWord("alphabet"));
-            Assert.IsFalse(dictionary.containsWord("jsjsjsjs"));
+            Assert.IsFalse(dictionary.containsWord("alphabet"));
+            Assert.IsTrue(dictionary.containsWord("jsjsjsjs"));
         }
     }
 }
