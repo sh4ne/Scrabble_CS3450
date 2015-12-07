@@ -771,5 +771,207 @@ namespace Scrabble.Game_Objects.Tests
 
             Assert.IsTrue(board.RemoveLastPlay().Count == 0);
         }
+
+        [TestMethod()]
+        public void GetWordsInPlayTest()
+        {
+            List<int> coordsX;
+            List<int> coordsY;
+            List<LetterTile> letterTiles;
+            Board board = new Board();
+
+            coordsX = new List<int>() { 7, 7, 7, 7, 7 };
+            coordsY = new List<int>() { 3, 4, 5, 6, 7 };
+            letterTiles = new List<LetterTile>()
+            {
+                new LetterTile('F', 4),
+                new LetterTile('I', 1),
+                new LetterTile('L', 1),
+                new LetterTile('E', 1),
+                new LetterTile('S', 1)
+            };
+
+            try
+            {
+                board.AddPlayToBoard(new Play(letterTiles, coordsX, coordsY, 42));
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            try
+            {
+                List<string> words = board.GetWordsInPlay((new Play(letterTiles, coordsX, coordsY, 42)));
+                Assert.IsTrue(words[0] == "FILES");
+                Assert.IsTrue(words.Count == 1);
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            coordsX = new List<int>() { 3, 4, 5, 6, 8 };
+            coordsY = new List<int>() { 7, 7, 7, 7, 7 };
+
+            try
+            {
+                board.AddPlayToBoard(new Play(letterTiles, coordsX, coordsY, 42));
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            try
+            {
+                List<string> words = board.GetWordsInPlay((new Play(letterTiles, coordsX, coordsY, 42)));
+                Assert.IsTrue(words[0] == "FILESS");
+                Assert.IsTrue(words.Count == 1);
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            coordsX = new List<int>() { 2, 2, 2, 2, 2 };
+            coordsY = new List<int>() { 3, 4, 5, 6, 7 };
+
+            try
+            {
+                board.AddPlayToBoard(new Play(letterTiles, coordsX, coordsY, 42));
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            try
+            {
+                List<string> words = board.GetWordsInPlay((new Play(letterTiles, coordsX, coordsY, 42)));
+                Assert.IsTrue(words[0] == "FILES");
+                Assert.IsTrue(words[1] == "SFILESS");
+                Assert.IsTrue(words.Count == 2);
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            coordsX = new List<int>() { 8, 8, 8, 8, 8 };
+            coordsY = new List<int>() { 2, 3, 4, 5, 6 };
+
+            try
+            {
+                board.AddPlayToBoard(new Play(letterTiles, coordsX, coordsY, 42));
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            try
+            {
+                List<string> words = board.GetWordsInPlay((new Play(letterTiles, coordsX, coordsY, 42)));
+                Assert.IsTrue(words[0] == "FILESS");
+                Assert.IsTrue(words[1] == "FI");
+                Assert.IsTrue(words[2] == "IL");
+                Assert.IsTrue(words[3] == "LE");
+                Assert.IsTrue(words[4] == "ES");
+                Assert.IsTrue(words.Count == 5);
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            coordsX = new List<int>() { 5, 5, 5, 5, 5 };
+            coordsY = new List<int>() { 8, 9, 10, 11, 12 };
+
+            try
+            {
+                board.AddPlayToBoard(new Play(letterTiles, coordsX, coordsY, 42));
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            try
+            {
+                List<string> words = board.GetWordsInPlay((new Play(letterTiles, coordsX, coordsY, 42)));
+                Assert.IsTrue(words[0] == "LFILES");
+                Assert.IsTrue(words.Count == 1);
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            // Make sure the exceptions get thrown correctly
+            coordsX = new List<int>() { 1, 1, 1, 1, 1 };
+            coordsY = new List<int>() { 3, 4, 5, 6, 7 };
+            bool exceptionWasThrown = false;
+            try
+            {
+                List<string> words = board.GetWordsInPlay((new Play(letterTiles, coordsX, coordsY, 42)));
+            }
+            catch
+            {
+                exceptionWasThrown = true;
+            }
+            Assert.IsTrue(exceptionWasThrown);
+            exceptionWasThrown = false;
+
+            coordsX = new List<int>() { 7, 7, 7, 7, 7 };
+            coordsY = new List<int>() { 3, 4, 5, 6, 7 };
+            letterTiles = new List<LetterTile>()
+            {
+                new LetterTile('F', 4),
+                new LetterTile('L', 1),
+                new LetterTile('I', 1),
+                new LetterTile('E', 1),
+                new LetterTile('S', 1)
+            };
+            try
+            {
+                List<string> words = board.GetWordsInPlay((new Play(letterTiles, coordsX, coordsY, 42)));
+            }
+            catch
+            {
+                exceptionWasThrown = true;
+            }
+            Assert.IsTrue(exceptionWasThrown);
+            exceptionWasThrown = false;
+
+            // Make sure adding just one letter tile works
+            coordsX = new List<int>() { 4 };
+            coordsY = new List<int>() { 8 };
+            letterTiles = new List<LetterTile>()
+            {
+                new LetterTile('F', 4)
+            };
+            try
+            {
+                board.AddPlayToBoard(new Play(letterTiles, coordsX, coordsY, 42));
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            try
+            {
+                List<string> words = board.GetWordsInPlay((new Play(letterTiles, coordsX, coordsY, 42)));
+                Assert.IsTrue(words[0] == "IF");
+                Assert.IsTrue(words[1] == "FF");
+                Assert.IsTrue(words.Count == 2);
+            }
+            catch (Exception e)
+            {
+                string blah = e.ToString();
+                Assert.Fail();
+            }
+        }
     }
 }

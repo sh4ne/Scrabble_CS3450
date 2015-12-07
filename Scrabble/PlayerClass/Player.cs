@@ -202,6 +202,17 @@ namespace Scrabble.PlayerClass
         }
 
         /// <summary>
+        /// Removes the given <see cref="LetterTile"/> from the <see cref="LetterTileRack"/>, and returns it.
+        /// This method does not catch any exceptions thrown by this.<see cref="tileRack"/>.
+        /// </summary>
+        /// <param name="tile">The <see cref="LetterTile"/> being removed.</param>
+        /// <returns>The <see cref="LetterTile"/> that was removed.</returns>
+        public LetterTile PopLetterTile(LetterTile tile)
+        {
+            return this.tileRack.PopLetterTile(tile);
+        }
+
+        /// <summary>
         /// Toggles <see cref="hasVotedToEndGame"/>.
         /// </summary>
         public void ToggleVote()
