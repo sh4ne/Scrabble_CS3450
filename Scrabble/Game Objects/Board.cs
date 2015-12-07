@@ -8,10 +8,7 @@ namespace Scrabble.Game_Objects
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// The board is a 15x15 grid of <see cref="GameBoardSquare"/>s to which plays can be added.
@@ -563,16 +560,15 @@ namespace Scrabble.Game_Objects
             return totalPoints;
         }
 
+        /// <summary>
+        /// Gets a list of all the words created by a given play.
+        /// </summary>
+        /// <param name="play">The play being checked.</param>
+        /// <returns>The list of words created by the play.</returns>
         public List<string> GetWordsInPlay(Play play)
         {
             List<string> words = new List<string>();
             bool isVerticalPlay;
-
-            // Make sure the play is valid.
-            //if (!this.PlayIsValid(play))
-            //{
-            //    throw new InvalidPlayException();
-            //}
 
             // Make sure that all of the LetterTiles in the play are already on the board.
             for (int i = 0; i < play.GetParallelListLength(); ++i)
@@ -588,7 +584,7 @@ namespace Scrabble.Game_Objects
                 }
             }
 
-            if (play.GetCoordinateX(0) == play.GetCoordinateX(1))
+            if (play.GetParallelListLength() == 1 || play.GetCoordinateX(0) == play.GetCoordinateX(1))
             {
                 isVerticalPlay = true;
             }
@@ -609,7 +605,7 @@ namespace Scrabble.Game_Objects
                 // Get to the top of the vertical word.
                 while (topOfWord > 0)
                 {
-                    if (boardGrid[x, topOfWord - 1].IsEmpty())
+                    if (this.boardGrid[x, topOfWord - 1].IsEmpty())
                     {
                         break;
                     }
@@ -647,7 +643,7 @@ namespace Scrabble.Game_Objects
                     // Go to the left end of the word
                     while (leftOfWord > 0)
                     {
-                        if (boardGrid[leftOfWord - 1, play.GetCoordinateY(i)].IsEmpty())
+                        if (this.boardGrid[leftOfWord - 1, play.GetCoordinateY(i)].IsEmpty())
                         {
                             break;
                         }
@@ -688,7 +684,7 @@ namespace Scrabble.Game_Objects
                 // Get to the top of the vertical word.
                 while (leftOfWord > 0)
                 {
-                    if (boardGrid[leftOfWord - 1, y].IsEmpty())
+                    if (this.boardGrid[leftOfWord - 1, y].IsEmpty())
                     {
                         break;
                     }
@@ -726,7 +722,7 @@ namespace Scrabble.Game_Objects
                     // Go to the left end of the word
                     while (topOfWord > 0)
                     {
-                        if (boardGrid[play.GetCoordinateX(i), topOfWord - 1].IsEmpty())
+                        if (this.boardGrid[play.GetCoordinateX(i), topOfWord - 1].IsEmpty())
                         {
                             break;
                         }

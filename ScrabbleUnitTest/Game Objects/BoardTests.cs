@@ -896,6 +896,35 @@ namespace Scrabble.Game_Objects.Tests
             }
             Assert.IsTrue(exceptionWasThrown);
             exceptionWasThrown = false;
+
+            // Make sure adding just one letter tile works
+            coordsX = new List<int>() { 4 };
+            coordsY = new List<int>() { 8 };
+            letterTiles = new List<LetterTile>()
+            {
+                new LetterTile('F', 4)
+            };
+            try
+            {
+                board.AddPlayToBoard(new Play(letterTiles, coordsX, coordsY, 42));
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+
+            try
+            {
+                List<string> words = board.GetWordsInPlay((new Play(letterTiles, coordsX, coordsY, 42)));
+                Assert.IsTrue(words[0] == "IF");
+                Assert.IsTrue(words[1] == "FF");
+                Assert.IsTrue(words.Count == 2);
+            }
+            catch (Exception e)
+            {
+                string blah = e.ToString();
+                Assert.Fail();
+            }
         }
     }
 }
