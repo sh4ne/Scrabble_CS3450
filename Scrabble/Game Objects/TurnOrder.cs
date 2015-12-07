@@ -109,6 +109,16 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
+        /// Gives points to a given player.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="Player"/> in this.<see cref="turnQueue"/></param>
+        /// <param name="score">The score to be given to that <see cref="Player"/>.</param>
+        public void AddScoreToPlayer(int index, int score)
+        {
+            this.turnQueue[index].AddToScore(score);
+        }
+
+        /// <summary>
         /// Returns the index of a given <see cref="Player"/> in <see cref="turnQueue"/>.
         /// </summary>
         /// <param name="player">The player in question.</param>

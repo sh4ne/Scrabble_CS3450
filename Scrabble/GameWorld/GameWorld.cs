@@ -52,7 +52,10 @@ namespace Scrabble.GameWorld
         /// </summary>
         private int indexOfPlayerWhoLastMadeAPlay;
 
-        // Need a dictionary
+        /// <summary>
+        /// Tells whether the game has ended.
+        /// </summary>
+        private bool gameHasEnded;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameWorld" /> class.
@@ -83,6 +86,11 @@ namespace Scrabble.GameWorld
         /// <param name="play">The <see cref="Play"/> that the player is making.</param>
         public void MakePlayerTakeTurn(Play play)
         {
+            if (this.gameHasEnded)
+            {
+                return;
+            }
+
             if (this.turnOrder.Players[this.turnOrder.ActivePlayerIndex].PlayerID != play.GetPlayerID())
             {
                 throw new InvalidPlayOrderException();
@@ -99,7 +107,8 @@ namespace Scrabble.GameWorld
                 // Score the play of the player who made the most recent play (not this play).
                 if (this.lastPlayIsInitialized)
                 {
-                    this.turnOrder.Players[this.indexOfPlayerWhoLastMadeAPlay].AddToScore(this.gameBoard.ScorePlay(this.lastPlay, true));
+                    int score = this.gameBoard.ScorePlay(this.lastPlay, true);
+                    this.turnOrder.AddScoreToPlayer(this.indexOfPlayerWhoLastMadeAPlay, score);
                     while (this.turnOrder.Players[this.indexOfPlayerWhoLastMadeAPlay].TileRack.LetterTileCount() < 7 && !(this.bag.LetterTileCount == 0))
                     {
                         this.turnOrder.Players[this.indexOfPlayerWhoLastMadeAPlay].DrawLetterTile(this.bag.DrawLetterTile());
@@ -114,10 +123,31 @@ namespace Scrabble.GameWorld
                     this.lastPlay = play;
                     this.indexOfPlayerWhoLastMadeAPlay = this.turnOrder.ActivePlayerIndex;
                     this.turnOrder.MoveToNextPlayer();
+                    this.lastPlayIsInitialized = true;
                 }
 
                 // Put the new play onto the board.
                 this.gameBoard.AddPlayToBoard(play);
+
+                if (GameEndConditionsAreMet())
+                {
+                    if (!this.CheckWords(this.gameBoard.GetWordsInPlay(play)))
+                    {
+                        List<LetterTile> tiles = this.gameBoard.RemoveLastPlay();
+                        foreach (LetterTile tile in tiles)
+                        {
+                            players[indexOfPlayerWhoLastMadeAPlay].DrawLetterTile(tile);
+                        }
+
+                        // Technically a lie, but whatever.
+                        this.lastPlayIsInitialized = false;
+                    }
+                    else
+                    {
+                        this.turnOrder.AddScoreToPlayer(this.indexOfPlayerWhoLastMadeAPlay, this.gameBoard.ScorePlay(play, true));
+                        this.gameHasEnded = true;
+                    }
+                }
             }
         }
 
@@ -181,6 +211,43 @@ namespace Scrabble.GameWorld
                 // Technically a lie, but whatever.
                 this.lastPlayIsInitialized = false;
             }
+        }
+
+        /// <summary>
+        /// Gets the PlayerID of the <see cref="Player"/> who currently has turn priority.
+        /// </summary>
+        /// <returns>The PlayerID of the player who currently has turn priority.</returns>
+        public int GetActivePlayerID()
+        {
+            return this.turnOrder.Players[this.turnOrder.ActivePlayerIndex].PlayerID;
+        }
+
+        /// <summary>
+        /// Checks whether the <see cref="Bag"/> is empty and a <see cref="Player"/>'s <see cref="LetterTileRack"/> is empty.
+        /// </summary>
+        /// <returns>True if the <see cref="Bag"/> is empty, and a <see cref="Player"/>'s <see cref="LetterTileRack"/> is empty, false otherwise.</returns>
+        private bool GameEndConditionsAreMet()
+        {
+            if(!(this.bag.LetterTileCount == 0))
+            {
+                return false;
+            }
+
+            int emptyRackCount = 0;
+            foreach(Player player in this.players)
+            {
+                if (player.TileRack.LetterTileCount() == 0)
+                {
+                    ++emptyRackCount;
+                }
+            }
+
+            if (emptyRackCount == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

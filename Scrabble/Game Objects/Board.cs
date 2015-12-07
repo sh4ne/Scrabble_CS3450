@@ -55,6 +55,17 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
+        /// Gets <see cref="boardGrid"/>.
+        /// </summary>
+        public GameBoardSquareGrid BoardGrid
+        {
+            get
+            {
+                return this.boardGrid;
+            }
+        }
+
+        /// <summary>
         /// Tells whether a <see cref="Play"/> can legally be placed onto the board.
         /// </summary>
         /// <param name="play">The <see cref="Play"/> being checked.</param>

@@ -157,7 +157,7 @@ namespace Scrabble.Game_Objects.Tests
             {
                 char ch = ltr[4].LetterValue;
             }
-            catch(LetterTileRack.InvalidLetterTileAccessException)
+            catch (LetterTileRack.InvalidLetterTileAccessException)
             {
                 exceptionWasThrown = true;
             }
@@ -177,6 +177,26 @@ namespace Scrabble.Game_Objects.Tests
             Assert.IsTrue(exceptionWasThrown);
             exceptionWasThrown = false;
 
+        }
+
+        [TestMethod()]
+        public void TestPopTile()
+        {
+            LetterTileRack ltr = new LetterTileRack();
+            LetterTile lt = new LetterTile('A', 1);
+
+            ltr.InsertLetterTile(lt);
+
+            bool exceptionWasThrown = false;
+            try
+            {
+                ltr.PopLetterTile(new LetterTile('E', 1));
+            }
+            catch
+            {
+                exceptionWasThrown = true;
+            }
+            Assert.IsTrue(exceptionWasThrown);
         }
 
         [TestMethod()]
