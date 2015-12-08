@@ -17,13 +17,6 @@ namespace Scrabble.GameWorld
     /// </summary>
     public class GameWorld
     {
-        public override string ToString()
-        {
-            string toReturn;
-            toReturn = "Game World- " + GameId;
-            return toReturn;
-        }
-
         /// <summary>
         /// The <see cref="Board"/> on which the game is to be played.
         /// </summary>
@@ -43,18 +36,11 @@ namespace Scrabble.GameWorld
         /// The turn order of the <see cref="Player"/>s.
         /// </summary>
         private TurnOrder turnOrder;
-		
-		private string gameId;
-        public string GameId{
-            get
-            {
-                return this.gameId;
-            }
-            set
-            {
-                this.gameId = value;
-            }
-        }
+
+        /// <summary>
+        /// The ID of the game world.
+        /// </summary>
+        private string gameId;
 
         /// <summary>
         ///  The <see cref="Play"/> that was added to the <see cref="Board"/> most recently.
@@ -77,6 +63,11 @@ namespace Scrabble.GameWorld
         private bool gameHasEnded;
 
         /// <summary>
+        /// The dictionary that the game will look up words with.
+        /// </summary>
+        private Server.Dictionary dictionary;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GameWorld" /> class.
         /// </summary>
         /// <param name="players">A list of the <see cref="Player"/>s who are playing the game.</param>
@@ -87,6 +78,7 @@ namespace Scrabble.GameWorld
             this.bag = new Bag();
             this.gameBoard = new Board();
             this.lastPlayIsInitialized = false;
+            this.dictionary = new Server.Dictionary(Properties.Resources.dictionary);
 
             foreach (Player player in this.players)
             {
@@ -95,7 +87,33 @@ namespace Scrabble.GameWorld
                     player.DrawLetterTile(this.bag.DrawLetterTile());
                 }
             }
+        }
 
+        /// <summary>
+        /// Gets or sets the gameId of the <see cref="GameWorld"/>.
+        /// </summary>
+        public string GameId
+        {
+            get
+            {
+                return this.gameId;
+            }
+
+            set
+            {
+                this.gameId = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the game is over.
+        /// </summary>
+        public bool GameIsOver
+        {
+            get
+            {
+                return this.gameHasEnded;
+            }
         }
 
         /// <summary>
@@ -177,35 +195,35 @@ namespace Scrabble.GameWorld
         /// he will have the <see cref="LetterTile"/>s used in that player returned to him. Otherwise, the challenging
         /// <see cref="Player"/> will lose his next turn.
         /// </summary>
-        /// <param name="challengedPlayerID">The ID of the <see cref="Player"/> whose <see cref="Play"/> has been challenged.</param>
         /// <param name="challengingPlayerID">The ID of the <see cref="Player"/> who is challenging a <see cref="Play"/>.</param>
-        public void ChallengeLastPlay(int challengedPlayerID, int challengingPlayerID)
+        public void ChallengeLastPlay(int challengingPlayerID)
         {
+            // If there is nothing to challenge, just don't bother.
+            if (!this.lastPlayIsInitialized)
+            {
+                return;
+            }
+
             List<string> words = this.gameBoard.GetWordsInPlay(this.lastPlay);
 
-            // These will either get initialized later, or an exception will get thrown because
+            // This will either get initialized later, or an exception will get thrown because
             // of bad input.
-            Player challengedPlayer = null;
             Player challengingPlayer = null;
-            bool player1WasInitialized = false;
-            bool player2WasInitialized = false;
+            bool playerWasInitialized = false;
+
             for (int i = 0; i < this.players.Count; ++i)
             {
                 if (this.players[i].PlayerID == challengingPlayerID)
                 {
                     challengingPlayer = this.players[i];
-                    player1WasInitialized = true;
-                }
-                else if (this.players[i].PlayerID == challengedPlayerID)
-                {
-                    challengedPlayer = this.players[i];
-                    player2WasInitialized = true;
+                    playerWasInitialized = true;
                 }
             }
 
-            if (!(player1WasInitialized && player2WasInitialized))
+            // Who challenges his own play? I mean really, who does that even?
+            if (!playerWasInitialized || this.players[this.indexOfPlayerWhoLastMadeAPlay] == challengingPlayer)
             {
-                throw new InvalidChallengeException("Player " + challengingPlayerID.ToString() + " is not a valid challenger of player " + challengedPlayerID.ToString());
+                throw new InvalidChallengeException("Player " + challengingPlayerID.ToString() + " is not a valid challenger of player " + this.indexOfPlayerWhoLastMadeAPlay.ToString());
             }
 
             if (this.CheckWords(words))
@@ -225,12 +243,12 @@ namespace Scrabble.GameWorld
                 List<LetterTile> tiles = this.gameBoard.RemoveLastPlay();
                 foreach (LetterTile tile in tiles)
                 {
-                    challengedPlayer.DrawLetterTile(tile);
+                    this.players[this.indexOfPlayerWhoLastMadeAPlay].DrawLetterTile(tile);
                 }
-
-                // Technically a lie, but whatever.
-                this.lastPlayIsInitialized = false;
             }
+            
+            // Technically a lie, but whatever.
+            this.lastPlayIsInitialized = false;
         }
 
         /// <summary>
@@ -240,6 +258,17 @@ namespace Scrabble.GameWorld
         public int GetActivePlayerID()
         {
             return this.turnOrder.Players[this.turnOrder.ActivePlayerIndex].PlayerID;
+        }
+
+        /// <summary>
+        /// Returns a string containing the <see cref="GameWorld"/> game id.
+        /// </summary>
+        /// <returns>See above.</returns>
+        public override string ToString()
+        {
+            string toReturn;
+            toReturn = "Game World- " + this.GameId;
+            return toReturn;
         }
 
         /// <summary>
@@ -279,7 +308,15 @@ namespace Scrabble.GameWorld
         private bool CheckWords(List<string> words)
         {
             // There isn't an actual dictionary at the moment. This'll have to change later.
-            return words.Count % 2 == 0;
+            foreach (string word in words)
+            {
+                if (!this.dictionary.ContainsWordBinSearch(word))
+                {
+                    return false;
+                }                
+            }
+
+            return true;
         }
 
         /// <summary>

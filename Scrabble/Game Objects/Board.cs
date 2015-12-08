@@ -868,7 +868,7 @@ namespace Scrabble.Game_Objects
             count = 1;
             while (true)
             {
-                if (x + count > 14 || this.boardGrid[x, y + count].IsEmpty())
+                if (y + count > 14 || this.boardGrid[x, y + count].IsEmpty())
                 {
                     break;
                 }

@@ -17,28 +17,25 @@ namespace Scrabble.Server
 
         public Dictionary(String filename)
         {
-            try
+            StringReader reader = new StringReader(filename);
+            string line;
+            while((line = reader.ReadLine()) != null)
             {
-                using (StreamReader fileIn = new StreamReader(filename))
-                {
-                    string line;
-                    while ((line = fileIn.ReadLine()) != null)
-                    {
-                        dictionary.Add(line);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Dictionary file could not be opened.");
-                Console.WriteLine(e.Message);
+                dictionary.Add(line);
             }
         }
+
         public bool containsWord(String word)
         {
             word = word.ToLower();
             if (dictionary.Contains(word)) { return true; }
             else { return false; }
+        }
+
+        public bool ContainsWordBinSearch(string word)
+        {
+            word = word.ToLower();
+            return dictionary.BinarySearch(word) >= 0;
         }
     }
 }

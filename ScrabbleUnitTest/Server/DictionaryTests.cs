@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Scrabble.Server;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Scrabble.Server.Tests
 {
@@ -17,6 +18,13 @@ namespace Scrabble.Server.Tests
             Dictionary dictionary = new Dictionary("dictionary.txt");
             Assert.IsFalse(dictionary.containsWord("alphabet"));
             //Assert.IsTrue(dictionary.containsWord("jsjsjsjs"));
+        }
+
+        [TestMethod()]
+        public void BinarySearchForWordTest()
+        {
+            Dictionary dict = new Dictionary(Properties.Resources.dictionary);
+            Assert.IsTrue(dict.ContainsWordBinSearch("aasvogel"));
         }
     }
 }
