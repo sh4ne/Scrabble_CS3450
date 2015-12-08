@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FirstThingsFirstUnitTests.cs" company="Scrabble Project Developers">
+// <copyright file="PlayClassTests.cs" company="Scrabble Project Developers">
 //     Copyright (c) Scrabble Project Developers. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
