@@ -35,16 +35,22 @@ namespace Scrabble
         private string message;
 
         /// <summary>
+        /// The Game ID that ChatPacket came from.
+        /// </summary>
+        private string gameId;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ChatPacket" /> class.
         /// </summary>
         /// <param name="playerID">this.playerID will be set equal to this parameter.</param>
         /// <param name="username">this.username will be set equal to this parameter.</param>
         /// <param name="message">this.message will be set equal to this parameter.</param>
-        public ChatPacket(int playerID, string username, string message)
+        public ChatPacket(int playerID, string username, string message, string gameID)
         {
             this.playerID = playerID;
             this.username = username;
             this.message = message;
+            this.gameId = gameID;
         }
 
         /// <summary>
@@ -77,6 +83,13 @@ namespace Scrabble
             get
             {
                 return this.message;
+            }
+        }
+        public string GameId
+        {
+            get
+            {
+                return this.gameId;
             }
         }
     }

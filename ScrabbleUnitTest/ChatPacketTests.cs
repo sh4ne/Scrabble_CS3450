@@ -14,7 +14,7 @@ namespace Scrabble.Tests
         [TestMethod()]
         public void ChatPacketTest()
         {
-            ChatPacket cp = new ChatPacket(9001, "Blob", "Hello, world . . . or whatever.");
+            ChatPacket cp = new ChatPacket(9001, "Blob", "Hello, world . . . or whatever.","0231");
 
             Assert.IsTrue(cp.PlayerID == 9001);
             Assert.IsTrue(cp.Username == "Blob");
