@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game Objects\GameState.cs" />
     <Compile Include="ChatPacket.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
