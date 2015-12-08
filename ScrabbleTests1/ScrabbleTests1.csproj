@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1C3D71DA-B18B-4694-825B-0B328146826C}</ProjectGuid>
+    <ProjectGuid>{A94AF364-1270-492E-9E4F-5F8CCA53EC43}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ScrabbleUnitTest</RootNamespace>
-    <AssemblyName>ScrabbleUnitTest</AssemblyName>
+    <RootNamespace>ScrabbleTests1</RootNamespace>
+    <AssemblyName>ScrabbleTests1</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,35 +51,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Game Objects\BoardTests.cs" />
-    <Compile Include="Game Objects\TurnOrderTests.cs" />
-    <Compile Include="GameWorld\GameWorldTests.cs" />
-    <Compile Include="LoggerTests.cs" />
-    <Compile Include="PlayClassTests.cs" />
-    <Compile Include="Game Objects\GameBoardSquareTests.cs" />
-    <Compile Include="Game Objects\LetterTileRackTests.cs" />
-    <Compile Include="Game Objects\LetterTileTests.cs" />
-    <Compile Include="PlayerClass\PlayerTests.cs" />
-    <Compile Include="Server\DictionaryTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ChatPacketTests.cs" />
-    <Compile Include="Game Objects\BagTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EasyNetwork\EasyNetwork.csproj">
-      <Project>{b334b401-b417-4b74-862e-1fd8709ffa9f}</Project>
-      <Name>EasyNetwork</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Scrabble\Scrabble.csproj">
-      <Project>{86bfc4a3-cd59-4a56-8243-1522bbc09b73}</Project>
-      <Name>Scrabble</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Server\dictionary.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

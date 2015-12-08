@@ -30,7 +30,21 @@ namespace Scrabble.Game_Objects.Tests
             Board board = new Board();
 
             // Make sure that there plays containing no LetterTiles are invalid.
-            Assert.IsFalse(board.PlayIsValid(new Play(new List<LetterTile>(), new List<int>(), new List<int>(), 42)));
+            try
+            {
+                Assert.IsFalse(board.PlayIsValid(new Play(new List<LetterTile>(), new List<int>(), new List<int>(), 42)));
+            }
+            catch (Play.EmptyParrallelList err)
+            {
+                Console.WriteLine(err);
+                Assert.IsTrue(true);
+            }
+            catch (Exception someOtherErr)
+            {
+                System.Diagnostics.Debug.WriteLine(someOtherErr);
+                // shouldn't throw another type of error
+                Assert.IsTrue(false);
+            }
 
             List<int> coordsX = new List<int>() { 7 };
             List<int> coordsY = new List<int>() { 7 };
@@ -64,8 +78,25 @@ namespace Scrabble.Game_Objects.Tests
             letterTiles2.Add(new LetterTile('A', 1));
             letterTiles2.Add(new LetterTile('A', 1));
             letterTiles2.Add(new LetterTile('A', 1));
-            Assert.IsFalse(board.PlayIsValid(new Play(letterTiles2, coordsX2, coordsY2, 42)));
-            Assert.IsFalse(board.PlayIsValid(new Play(letterTiles2, coordsY2, coordsX2, 42)));
+            try
+            {
+                Assert.IsFalse(board.PlayIsValid(new Play(letterTiles2, coordsX2, coordsY2, 42)));
+            }
+            catch (Play.DuplicateCoords err)
+            {
+                Console.WriteLine(err);
+                Assert.IsTrue(true);
+            }
+
+            try
+            {
+                Assert.IsFalse(board.PlayIsValid(new Play(letterTiles2, coordsY2, coordsX2, 42)));
+            }
+            catch (Play.DuplicateCoords err)
+            {
+                Console.WriteLine(err);
+                Assert.IsTrue(true);
+            }
 
             // Make sure that all the tiles in a play have to either be in the same row or the same column.
             coordsX2 = new List<int>() { 5, 6, 7 };
@@ -74,8 +105,24 @@ namespace Scrabble.Game_Objects.Tests
             letterTiles2.Add(new LetterTile('A', 1));
             letterTiles2.Add(new LetterTile('A', 1));
             letterTiles2.Add(new LetterTile('A', 1));
-            Assert.IsFalse(board.PlayIsValid(new Play(letterTiles2, coordsX2, coordsY2, 42)));
-            Assert.IsFalse(board.PlayIsValid(new Play(letterTiles2, coordsY2, coordsX2, 42)));
+            try {
+                Assert.IsFalse(board.PlayIsValid(new Play(letterTiles2, coordsX2, coordsY2, 42)));
+            }
+            catch (Play.InvalidAxis err)
+            {
+                Console.WriteLine(err);
+                Assert.IsTrue(true);
+            }
+
+            try
+            {
+                Assert.IsFalse(board.PlayIsValid(new Play(letterTiles2, coordsY2, coordsX2, 42)));
+            }
+            catch (Play.InvalidAxis err)
+            {
+                Console.WriteLine(err);
+                Assert.IsTrue(true);
+            }
 
             // Make sure that a play consisting of two LetterTiles at GameBoardSquares (7,7) and (8,7) is valid.
             coordsX.Add(9);
