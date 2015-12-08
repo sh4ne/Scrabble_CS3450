@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Resources;
 
 namespace Scrabble.GameWorld
 {
@@ -12,6 +8,7 @@ namespace Scrabble.GameWorld
 
         public GUILetterTile(Game_Objects.LetterTile letterTile) {
             this.letterTile = letterTile;
+            ResourceManager letters = new ResourceManager("Strings", typeof(System.Reflection.Assembly).Assembly);
         }
 
         public void update(Game_Objects.LetterTile letterTile){
