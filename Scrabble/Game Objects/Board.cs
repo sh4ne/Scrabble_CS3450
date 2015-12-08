@@ -8,10 +8,7 @@ namespace Scrabble.Game_Objects
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// The board is a 15x15 grid of <see cref="GameBoardSquare"/>s to which plays can be added.
@@ -55,6 +52,17 @@ namespace Scrabble.Game_Objects
 
             this.boardGrid = new GameBoardSquareGrid(this.squaresList);
             this.lastPlayIsNull = true;
+        }
+
+        /// <summary>
+        /// Gets <see cref="boardGrid"/>.
+        /// </summary>
+        public GameBoardSquareGrid BoardGrid
+        {
+            get
+            {
+                return this.boardGrid;
+            }
         }
 
         /// <summary>
@@ -564,6 +572,204 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
+        /// Gets a list of all the words created by a given play.
+        /// </summary>
+        /// <param name="play">The play being checked.</param>
+        /// <returns>The list of words created by the play.</returns>
+        public List<string> GetWordsInPlay(Play play)
+        {
+            List<string> words = new List<string>();
+            bool isVerticalPlay;
+
+            // Make sure that all of the LetterTiles in the play are already on the board.
+            for (int i = 0; i < play.GetParallelListLength(); ++i)
+            {
+                if (this.boardGrid[play.GetCoordinateX(i), play.GetCoordinateY(i)].IsEmpty())
+                {
+                    throw new InvalidPlayException();
+                }
+
+                if (!this.boardGrid[play.GetCoordinateX(i), play.GetCoordinateY(i)].ContainedLetterTile.Equals(play.GetLetterTile(i)))
+                {
+                    throw new InvalidPlayException();
+                }
+            }
+
+            if (play.GetParallelListLength() == 1 || play.GetCoordinateX(0) == play.GetCoordinateX(1))
+            {
+                isVerticalPlay = true;
+            }
+            else
+            {
+                isVerticalPlay = false;
+            }
+
+            int x = play.GetCoordinateX(0);
+            int y = play.GetCoordinateY(0);
+
+            if (isVerticalPlay)
+            {
+                int topOfWord = y;
+                int midX = x;
+                StringBuilder wordBuilder = new StringBuilder();
+
+                // Get to the top of the vertical word.
+                while (topOfWord > 0)
+                {
+                    if (this.boardGrid[x, topOfWord - 1].IsEmpty())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        --topOfWord;
+                    }
+                }
+
+                while (topOfWord <= 14)
+                {
+                    if (this.boardGrid[x, topOfWord].IsEmpty())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        wordBuilder.Append(this.boardGrid[x, topOfWord].ContainedLetterTile.LetterValue);
+                        ++topOfWord;
+                    }
+                }
+
+                if (wordBuilder.ToString().Length > 1)
+                {
+                    words.Add(wordBuilder.ToString());
+                }
+
+                wordBuilder.Clear();
+
+                // Get all the words that branch off from that word.
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    int leftOfWord = play.GetCoordinateX(i);
+
+                    // Go to the left end of the word
+                    while (leftOfWord > 0)
+                    {
+                        if (this.boardGrid[leftOfWord - 1, play.GetCoordinateY(i)].IsEmpty())
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            --leftOfWord;
+                        }
+                    }
+
+                    // Read rightward until the word ends.
+                    while (leftOfWord <= 14)
+                    {
+                        if (this.boardGrid[leftOfWord, play.GetCoordinateY(i)].IsEmpty())
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            wordBuilder.Append(this.boardGrid[leftOfWord, play.GetCoordinateY(i)].ContainedLetterTile.LetterValue);
+                            ++leftOfWord;
+                        }
+                    }
+
+                    if (wordBuilder.ToString().Length > 1)
+                    {
+                        words.Add(wordBuilder.ToString());  
+                    }
+
+                    wordBuilder.Clear();
+                }
+            }
+            else
+            {
+                int leftOfWord = x;
+                int midY = y;
+                StringBuilder wordBuilder = new StringBuilder();
+
+                // Get to the top of the vertical word.
+                while (leftOfWord > 0)
+                {
+                    if (this.boardGrid[leftOfWord - 1, y].IsEmpty())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        --leftOfWord;
+                    }
+                }
+
+                while (leftOfWord <= 14)
+                {
+                    if (this.boardGrid[leftOfWord, y].IsEmpty())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        wordBuilder.Append(this.boardGrid[leftOfWord, y].ContainedLetterTile.LetterValue);
+                        ++leftOfWord;
+                    }
+                }
+
+                if (wordBuilder.ToString().Length > 1)
+                {
+                    words.Add(wordBuilder.ToString());
+                }
+
+                wordBuilder.Clear();
+
+                // Get all the words that branch off from that word.
+                for (int i = 0; i < play.GetParallelListLength(); ++i)
+                {
+                    int topOfWord = play.GetCoordinateY(i);
+
+                    // Go to the left end of the word
+                    while (topOfWord > 0)
+                    {
+                        if (this.boardGrid[play.GetCoordinateX(i), topOfWord - 1].IsEmpty())
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            --topOfWord;
+                        }
+                    }
+
+                    // Read rightward until the word ends.
+                    while (topOfWord <= 14)
+                    {
+                        if (this.boardGrid[play.GetCoordinateX(i), topOfWord].IsEmpty())
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            wordBuilder.Append(this.boardGrid[play.GetCoordinateX(i), topOfWord].ContainedLetterTile.LetterValue);
+                            ++topOfWord;
+                        }
+                    }
+
+                    if (wordBuilder.ToString().Length > 1)
+                    {
+                        words.Add(wordBuilder.ToString());
+                    }
+
+                    wordBuilder.Clear();
+                }
+            }
+
+            return words;
+        }
+
+        /// <summary>
         /// Gets the score for a <see cref="LetterTile"/> at a specific 
         /// location on the board.
         /// </summary>
@@ -662,7 +868,7 @@ namespace Scrabble.Game_Objects
             count = 1;
             while (true)
             {
-                if (x + count > 14 || this.boardGrid[x, y + count].IsEmpty())
+                if (y + count > 14 || this.boardGrid[x, y + count].IsEmpty())
                 {
                     break;
                 }
@@ -880,7 +1086,7 @@ namespace Scrabble.Game_Objects
             /// </summary>
             public InvalidPlayException()
             {
-                this.message = "InvalidPlay: An attempt was made to add or score an invalid Play to a Board.";
+                this.message = "InvalidPlay: An attempt was made to add, check, or score an invalid Play to a Board.";
             }
 
             /// <summary>

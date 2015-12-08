@@ -52,13 +52,18 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
-        /// Gets <see cref="turnQueue"/>.
+        /// Gets or sets <see cref="turnQueue"/>.
         /// </summary>
         public List<Player> Players
         {
             get
             {
                 return this.turnQueue;
+            }
+
+            set
+            {
+                this.turnQueue = value;
             }
         }
 
@@ -101,6 +106,16 @@ namespace Scrabble.Game_Objects
                     break;
                 }
             }            
+        }
+
+        /// <summary>
+        /// Gives points to a given player.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="Player"/> in this.<see cref="turnQueue"/></param>
+        /// <param name="score">The score to be given to that <see cref="Player"/>.</param>
+        public void AddScoreToPlayer(int index, int score)
+        {
+            this.turnQueue[index].AddToScore(score);
         }
 
         /// <summary>
