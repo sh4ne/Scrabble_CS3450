@@ -55,7 +55,7 @@ namespace Scrabble
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form client = new Server.ClientGUI();
+            Form client = new Scrabble.GameWorld.GUIBoard();
             client.Show();
         }
     }

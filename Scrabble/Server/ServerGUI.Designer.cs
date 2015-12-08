@@ -35,6 +35,9 @@
             this.gameList = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comLabel = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.printgames = new System.Windows.Forms.Button();
+            this.toClient = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,11 +101,44 @@
             this.comLabel.TabIndex = 4;
             this.comLabel.Text = "Communications";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(15, 158);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Create New World";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // printgames
+            // 
+            this.printgames.Location = new System.Drawing.Point(149, 158);
+            this.printgames.Name = "printgames";
+            this.printgames.Size = new System.Drawing.Size(75, 23);
+            this.printgames.TabIndex = 6;
+            this.printgames.Text = "Print Games";
+            this.printgames.UseVisualStyleBackColor = true;
+            this.printgames.Click += new System.EventHandler(this.printgames_Click);
+            // 
+            // toClient
+            // 
+            this.toClient.Location = new System.Drawing.Point(149, 199);
+            this.toClient.Name = "toClient";
+            this.toClient.Size = new System.Drawing.Size(75, 28);
+            this.toClient.TabIndex = 7;
+            this.toClient.Text = "To Client";
+            this.toClient.UseVisualStyleBackColor = true;
+            this.toClient.Click += new System.EventHandler(this.toClient_Click);
+            // 
             // ServerGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(631, 570);
+            this.Controls.Add(this.toClient);
+            this.Controls.Add(this.printgames);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.comLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gameList);
@@ -128,5 +164,8 @@
         private System.Windows.Forms.ListBox gameList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label comLabel;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button printgames;
+        private System.Windows.Forms.Button toClient;
     }
 }
