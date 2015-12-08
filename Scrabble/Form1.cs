@@ -119,5 +119,13 @@ namespace Scrabble
         {
             logger.AddToGameState("This goes to gamestate.");
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Scrabble.Game_Objects.GameState state = new Game_Objects.GameState();
+            PlayerClass.Player player = new PlayerClass.Player(0001, "username");
+            state.AddPlayer(player);
+            logger.AddToGameState(state.ToString());
+        }
     }
 }
