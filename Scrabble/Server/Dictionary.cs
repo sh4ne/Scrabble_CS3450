@@ -11,7 +11,7 @@ namespace Scrabble.Server
     /// containsWord(string word) that checks if a given word is in the 
     /// dictionary. 
     /// </summary>
-    class Dictionary
+    public class Dictionary
     {
         private List<String> dictionary = new List<String>();
 
@@ -36,6 +36,7 @@ namespace Scrabble.Server
         }
         public bool containsWord(String word)
         {
+            word = word.ToLower();
             if (dictionary.Contains(word)) { return true; }
             else { return false; }
         }
