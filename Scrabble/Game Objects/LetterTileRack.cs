@@ -91,6 +91,26 @@ namespace Scrabble.Game_Objects
         }
 
         /// <summary>
+        /// Pops a <see cref="LetterTile"/> from the <see cref="LetterTileRack"/>, and returns it. Throws <see cref="InvalidLetterTileAccessException"/>
+        /// if the <see cref="LetterTile"/> was not present in the <see cref="LetterTileRack"/>.
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <returns></returns>
+        public LetterTile PopLetterTile(LetterTile tile)
+        {
+            for (int i = 0; i < this.LetterTileCount(); ++i)
+            {
+                if (this.containedLetterTileSet[i].Equals(tile))
+                {
+                    this.containedLetterTileSet.Remove(this.containedLetterTileSet[i]);
+                    return tile;
+                }
+            }
+
+            throw new InvalidLetterTileAccessException("InvalidLetterTileAccess: The LetterTile " + tile.LetterValue.ToString() + ", " + tile.PointValue.ToString() + " could not be found.");
+        }
+
+        /// <summary>
         /// Returns the number of LetterTiles contained in the LetterTileRack.
         /// </summary>
         /// <returns>The number of LetterTiles contained in the LetterTileRack.</returns>
